@@ -1,0 +1,7 @@
+{
+  "name": "patoZambranoApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
