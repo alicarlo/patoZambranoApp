@@ -83,6 +83,11 @@
               "progress": false
             }
           },
+          "options": {
+            "host": "0.0.0.0",
+            "disableHostCheck": true,
+            "port": 8100
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {

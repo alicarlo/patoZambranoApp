@@ -1,0 +1,37 @@
+<ion-header [translucent]="true" color="cream" class="ion-no-border h-[100px]">
+  <ion-toolbar color="cream" class="!pt-[30px] h-[100px]">
+    <ion-title mode="md" class="text-dark2 font-semibold text-[20px]">Terminos y condiciones</ion-title>
+    <ion-buttons slot="end" (click)="closeMenu()">
+      <ion-button class="p-2 rounded-full flex items-center bg-white justify-center h-[54px] w-[54px]">
+        <ion-icon size="large" name="close" class="text-black"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="h-full w-full bg-white rounded-[32px] p-4  shadow-lg hover:shadow-2xl transition">
+    <h2 class="text-lg font-semibold text-gray-900">Términos y Condiciones</h2>
+    <p class="mt-2"><strong>Última actualización:</strong> [Fecha]</p>
+    
+    <h3 class="mt-4 font-semibold">1. Uso de la Aplicación</h3>
+    <p>- La aplicación está destinada para uso personal y no comercial.</p>
+    <p>- No debes utilizar la aplicación para actividades ilegales o no autorizadas.</p>
+    
+    <h3 class="mt-4 font-semibold">2. Registro y Cuenta</h3>
+    <p>- Es posible que debas registrarte para acceder a ciertas funciones.</p>
+    <p>- Eres responsable de mantener la confidencialidad de tu cuenta.</p>
+
+    <h3 class="mt-4 font-semibold">3. Privacidad y Datos Personales</h3>
+    <p>- Recopilamos y procesamos información de acuerdo con nuestra <strong>Política de Privacidad</strong>.</p>
+
+    <h3 class="mt-4 font-semibold">4. Responsabilidad y Garantías</h3>
+    <p>- No garantizamos que la aplicación funcione sin interrupciones o errores.</p>
+
+    <h3 class="mt-4 font-semibold">5. Modificaciones a los Términos</h3>
+    <p>- Podemos actualizar estos términos en cualquier momento.</p>
+
+    <h3 class="mt-4 font-semibold">6. Contacto</h3>
+    <p>Si tienes preguntas, contáctanos en <strong>[correo electrónico o enlace de soporte]</strong>.</p>
+  </div>
+</ion-content>

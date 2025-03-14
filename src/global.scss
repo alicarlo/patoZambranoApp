@@ -34,4 +34,50 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+// @import "@ionic/angular/css/palettes/dark.system.css";
+
+/*** Tailwind ***/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+ion-content {
+  --background: var(--ion-color-cream);
+}
+
+
+ion-toolbar {
+  --background: var(--ion-color-cream);
+}
+
+ion-header {
+  --background: var(--ion-color-cream);
+}
+
+ion-list {
+  --background: var(--ion-color-cream);
+}
+
+ion-item {
+  --background: var(--ion-color-cream);
+}
+
+.error-messages {
+	color: var(--ion-color-danger);
+	font-size: 13px;
+	text-align: center;
+  margin-bottom: 15px;
+}
+
+.error-messages {
+  @apply text-red-600 text-sm font-medium text-center;
+}
+
+.bottom-end {
+  &::part(content) {
+    width: 100%;
+    height: 250px;
+    position: absolute;
+    bottom: 0;
+  }
+}

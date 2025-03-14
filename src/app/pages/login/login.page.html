@@ -1,0 +1,66 @@
+<ion-content [fullscreen]="true" scroll="true">
+
+  <div class="flex flex-col items-center justify-center min-h-screen  p-4">
+
+    <img src="assets/images/logo1.jpeg" alt="Logo" class="h-[350px]">
+
+    <form class="px-6 rounded-lg w-full max-w-sm" [formGroup]="loginForm">
+      <div class="mb-4">
+        <label for="email" class="block text-dark2 font-semibold mb-2">Correo Electrónico</label>
+        <input
+          formControlName="email"
+          id="email"
+          type="email"
+          placeholder="Ingrese su Correo Electrónico"
+          class="w-full px-4 py-3 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+        />
+      </div>
+      <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.email">
+          <div class="error-message" *ngIf="loginForm.get('email')?.hasError(error.type) && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+            {{error.message}}
+          </div>
+        </ng-container>
+      </div>
+
+
+      <div class="mb-4">
+        <label for="password" class="block text-dark2 font-semibold mb-2">Contraseña</label>
+        <input
+          formControlName="password"
+          id="password"
+          type="password"
+          placeholder="Ingrese su Contraseña"
+          class="w-full px-4 py-3 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+        />
+      </div>
+      <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.password">
+          <div class="error-message" *ngIf="loginForm.get('password')?.hasError(error.type) && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+            {{error.message}}
+          </div>
+        </ng-container>
+      </div>
+      
+      <div class="flex flex-col gap-2">
+        <ion-button 
+          expand="block" 
+          color="dark2" 
+          (click)="goHome()"
+        >
+          Iniciar Sesión
+        </ion-button>
+
+        <ion-button 
+          expand="block" 
+          color="dark2" 
+          fill="outline"
+          (click)="openRegisterModal()"
+        >
+          Registrarse
+        </ion-button>
+      </div>
+      
+    </form>
+  </div>
+</ion-content>

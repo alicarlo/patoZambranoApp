@@ -1,0 +1,71 @@
+<ion-header [translucent]="true" color="cream" class="ion-no-border h-[100px]">
+  <ion-toolbar color="cream" class="!pt-[30px] h-[100px]">
+    <ion-title mode="md" class="text-dark2 font-semibold text-[20px]">Menu</ion-title>
+    <ion-buttons slot="end" (click)="closeMenu()">
+      <ion-button class="p-2 rounded-full flex items-center bg-white justify-center h-[54px] w-[54px]">
+        <ion-icon size="large" name="close" class="text-black"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+  <!-- Perfil -->
+  <ion-item (click)="openProfileModal()" class="mt-[10px] rounded-[16px]">
+    <ion-icon slot="start" name="person" class="text-dark2"></ion-icon>
+    <ion-label>
+      <p>Perfil</p>
+    </ion-label>
+  </ion-item>
+
+  <!-- Mis Evidencias -->
+  <ion-item (click)="openEvidenceModal()" class="mt-[10px] rounded-[16px]">
+    <ion-icon slot="start" name="document" class="text-dark2"></ion-icon>
+    <ion-label>
+      <p>Mis Evidencias</p>
+    </ion-label>
+  </ion-item>
+
+  <!-- Eventos -->
+  <ion-item (click)="openEventsModal()" class="mt-[10px] rounded-[16px]">
+    <ion-icon slot="start" name="calendar" class="text-dark2"></ion-icon>
+    <ion-label>
+      <p>Eventos</p>
+    </ion-label>
+  </ion-item>
+
+  
+  <!-- Eventos -->
+  <ion-item (click)="openPromotionsModal()" class="mt-[10px] rounded-[16px]">
+    <ion-icon slot="start" name="sparkles" class="text-dark2"></ion-icon>
+    <ion-label>
+      <p>Promociones</p>
+    </ion-label>
+  </ion-item>
+
+    <!-- Eventos -->
+    <ion-item (click)="openMessageModal()" class="mt-[10px] rounded-[16px]">
+      <ion-icon slot="start" name="send" class="text-dark2"></ion-icon>
+      <ion-label>
+        <p>Mensajes</p>
+      </ion-label>
+    </ion-item>
+
+  <!-- Términos y Condiciones -->
+  <ion-item (click)="openTermsModal()" class="mt-[10px] rounded-[16px]">
+    <ion-icon slot="start" name="document-text" class="text-dark2"></ion-icon>
+    <ion-label>
+      <p>Términos y Condiciones</p>
+    </ion-label>
+  </ion-item>
+
+  <!-- Cerrar Sesión -->
+  <ion-item  class="mt-[20px] rounded-[16px]" (click)="signOut()">
+    <ion-icon slot="start" name="close" color="danger"></ion-icon>
+    <ion-label>
+      <p>Cerrar la sesión</p>
+    </ion-label>
+  </ion-item>
+
+</ion-content>

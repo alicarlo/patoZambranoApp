@@ -1,0 +1,211 @@
+<ion-header [translucent]="true" color="cream" class="ion-no-border h-[100px]">
+  <ion-toolbar color="cream" class="!pt-[30px] h-[100px]">
+    <ion-title mode="md" class="text-dark2 font-semibold text-[20px]">Perfil</ion-title>
+    <ion-buttons slot="end" (click)="closeMenu()">
+      <ion-button class="p-2 rounded-full flex items-center bg-white justify-center h-[54px] w-[54px]">
+        <ion-icon size="large" name="close" class="text-black"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form  [formGroup]="signupForm">
+    <!-- Nombre -->
+    <div class="mb-4">
+      <label for="nombre" class="block text-dark2 font-semibold mb-2">Nombre</label>
+      <input
+        id="nombre"
+        formControlName="name"
+        type="text"
+        placeholder="Ingrese su Nombre"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.name">
+        <div class="error-message" *ngIf="signupForm.get('name')?.hasError(error.type) && (signupForm.get('name')?.dirty || signupForm.get('name')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Apellido Paterno -->
+    <div class="mb-4">
+      <label for="apellido_paterno" class="block text-dark2 font-semibold mb-2">Apellido Paterno</label>
+      <input
+        formControlName="lastName"
+        id="apellido_paterno"
+        type="text"
+        placeholder="Ingrese su Apellido Paterno"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.lastName">
+        <div class="error-message" *ngIf="signupForm.get('lastName')?.hasError(error.type) && (signupForm.get('lastName')?.dirty || signupForm.get('lastName')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Apellido Materno -->
+    <div class="mb-4">
+      <label for="apellido_materno" class="block text-dark2 font-semibold mb-2">Apellido Materno</label>
+      <input
+        formControlName="secondLastName"
+        id="apellido_materno"
+        type="text"
+        placeholder="Ingrese su Apellido Materno"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.secondLastName">
+        <div class="error-message" *ngIf="signupForm.get('secondLastName')?.hasError(error.type) && (signupForm.get('secondLastName')?.dirty || signupForm.get('secondLastName')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Número de Teléfono -->
+    <div class="mb-4">
+      <label for="telefono" class="block text-dark2 font-semibold mb-2">Número de Teléfono</label>
+      <input
+        formControlName="phoneNumber"
+        id="telefono"
+        type="tel"
+        placeholder="Ingrese su Número de Teléfono"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.phoneNumber">
+        <div class="error-message" *ngIf="signupForm.get('phoneNumber')?.hasError(error.type) && (signupForm.get('phoneNumber')?.dirty || signupForm.get('phoneNumber')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Dirección -->
+    <div class="mb-4">
+      <label for="direccion" class="block text-dark2 font-semibold mb-2">Dirección</label>
+      <input
+        formControlName="address"
+        id="direccion"
+        type="text"
+        placeholder="Ingrese su Dirección"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.address">
+        <div class="error-message" *ngIf="signupForm.get('address')?.hasError(error.type) && (signupForm.get('address')?.dirty || signupForm.get('address')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="mb-4">
+      <label for="state" class="block text-dark2 font-semibold mb-2">Estado</label>
+      <input
+        formControlName="state"
+        id="state"
+        type="text"
+        placeholder="Ingrese su Estado"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.state">
+        <div class="error-message" *ngIf="signupForm.get('state')?.hasError(error.type) && (signupForm.get('state')?.dirty || signupForm.get('state')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="mb-4">
+      <label for="town" class="block text-dark2 font-semibold mb-2">Municipio</label>
+      <input
+        formControlName="town"
+        id="town"
+        type="text"
+        placeholder="Ingrese su municipio"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.town">
+        <div class="error-message" *ngIf="signupForm.get('town')?.hasError(error.type) && (signupForm.get('town')?.dirty || signupForm.get('town')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Colonia -->
+    <div class="mb-4">
+      <label for="colonia" class="block text-dark2 font-semibold mb-2">Colonia</label>
+      <input
+        formControlName="colony"
+        id="colonia"
+        type="text"
+        placeholder="Ingrese su Colonia"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.colony">
+        <div class="error-message" *ngIf="signupForm.get('colony')?.hasError(error.type) && (signupForm.get('colony')?.dirty || signupForm.get('colony')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Código Postal -->
+    <div class="mb-4">
+      <label for="postalCode" class="block text-dark2 font-semibold mb-2">Código Postal</label>
+      <input
+        formControlName="postalCode"
+        id="postalCode"
+        type="text"
+        placeholder="Ingrese su Código Postal"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.postalCode">
+        <div class="error-message" *ngIf="signupForm.get('postalCode')?.hasError(error.type) && (signupForm.get('postalCode')?.dirty || signupForm.get('postalCode')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="mb-4">
+      <label for="age" class="block text-dark2 font-semibold mb-2">Edad</label>
+      <input
+        formControlName="age"
+        id="age"
+        type="number"
+        placeholder="Ingrese su Edad"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.age">
+        <div class="error-message" *ngIf="signupForm.get('age')?.hasError(error.type) && (signupForm.get('age')?.dirty || signupForm.get('age')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+  </form>
+</ion-content>
+
+<ion-footer [translucent]="false" color="cream" class="ion-no-border">
+  <ion-toolbar color="cream">
+    <ion-button expand="block" color="dark2" 
+      (click)="updateUser()"
+      [disabled]="!signupForm.valid">
+      Actualizar</ion-button>
+  </ion-toolbar>
+</ion-footer>

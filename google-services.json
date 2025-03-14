@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "408737795385",
+    "firebase_url": "https://reportedirecto-dfbf6-default-rtdb.firebaseio.com",
+    "project_id": "reportedirecto-dfbf6",
+    "storage_bucket": "reportedirecto-dfbf6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408737795385:android:c483fa076e39f4839e2ce8",
+        "android_client_info": {
+          "package_name": "io.trayectosIntelugentes.patoZambranoApp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCINNatE73VWgc0VEEEsw_b0eNjmbcKI3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

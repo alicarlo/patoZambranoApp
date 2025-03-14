@@ -1,0 +1,57 @@
+<ion-header [translucent]="true" color="cream" class="ion-no-border h-[100px]">
+  <ion-toolbar color="cream" class="!pt-[30px] h-[100px]">
+    <ion-title mode="md" class="text-dark2 font-semibold text-[20px]">Promociones</ion-title>
+    <ion-buttons slot="end" (click)="closeMenu()">
+      <ion-button class="p-2 rounded-full flex items-center bg-white justify-center h-[54px] w-[54px]">
+        <ion-icon size="large" name="close" class="text-black"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div *ngIf="promotions.length === 0" class="w-full h-full flex items-center justify-center">
+    <p class="font-semibold text-[20px]">No hay promociones</p>
+  </div>
+
+  <div *ngIf="promotions.length !== 0">
+    <div *ngFor="let promotion of promotions">
+      <div class="flex flex-col gap-[10px]  w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transition">
+
+        <div class="flex justify-between">
+          <div>
+            <p class=""><span class="font-semibold text-[45px]">{{ numberDateFormat(promotion.startTime) }}</span><span class="font-semibold">
+              {{ numberMonthFormat(promotion.startTime) }}
+            </span></p>
+            <p>{{ startFormat(promotion.startTime) }} - {{ endFormat(promotion.endTime) }}</p>
+          </div>
+     
+          <ion-buttons slot="end" (click)="socialSharing(promotion)">
+            <ion-button class="p-2 rounded-full flex items-center bg-dark2 justify-center h-[54px] w-[54px]">
+              <ion-icon size="large" name="share-social" class="text-white"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </div>
+    
+        <div class="flex justify-between">
+          <p class="font-semibold text-[20px]">{{ promotion.description.toUpperCase() }}</p>
+        </div>
+
+
+          <div class="flex justify-end w-full items-center">
+            <ion-chip (click)="launch(promotion)">
+              Ubicación
+            </ion-chip>
+          </div>  
+    
+    
+        <div>
+          <img [src]="promotion.imageURL"  class="rounded-[32px]"/>
+        </div>
+      </div>
+    
+      <br>
+    </div>
+  </div>
+</ion-content>

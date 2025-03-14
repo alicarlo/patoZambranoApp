@@ -1,0 +1,192 @@
+
+<ion-header [translucent]="true" color="cream" class="ion-no-border h-[100px]">
+  <ion-toolbar color="cream" class="!pt-[30px] h-[100px]">
+    <ion-title mode="md" class="text-dark2 font-semibold text-[20px]">Reporte Directo</ion-title>
+    <ion-buttons slot="end" (click)="openMenuModal()">
+      <ion-button class="p-2 rounded-full flex items-center bg-[#2f2f2f] justify-center h-[54px] w-[54px]">
+        <ion-icon size="large" name="menu" class="text-white"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!--
+  <div class="absolute top-5 z-30 h-12 w-[95%] flex justify-center items-center">
+    <div class="bg-[#f9f6f1] w-full  h-full rounded-full m-5">
+      <div class="flex items-center justify-between px-2.5 h-full">
+        
+  
+        <p class="m-0 text-black font-medium text-lg">Reporte Directo</p>
+      </div>
+    </div>
+
+    <div class="flex gap-1 items-center">
+      <ion-buttons>
+        <ion-button class="p-2 rounded-full flex items-center bg-[#f9f6f1] justify-center h-[54px] w-[54px]">
+          <ion-icon color="dark" name="menu"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+  </div>
+-->
+<div 
+  *ngIf="!!isHidden" 
+  class="absolute top-0 left-0 w-full h-[600px] flex justify-center items-center bg-white z-10">
+  
+  <div class="bg-[#f6f8fc] rounded-[32px] w-[90%]  h-[384px] shadow-lg hover:shadow-2xl transition flex justify-center items-center">
+    <div class="flex gap-[10px] justify-center items-center  h-[384px]">
+      <ion-spinner name="circles"></ion-spinner>
+      <p class="font-bold">Cargando Mapa</p>
+    </div>
+  </div>
+</div>
+
+
+<div [ngStyle]="{'visibility': isHidden ? 'hidden' : 'visible'}" class="flex justify-center items-center   p-[15px]">
+  <div class="absolute z-[9999] bottom-[75%] right-[80%]">
+    <ion-buttons slot="end" (click)="getGps()">
+      <ion-button class="p-2 rounded-full flex items-center bg-[#2f2f2f] justify-center h-[54px] w-[54px]">
+        <ion-icon size="large" name="locate" class="text-white"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </div>
+  <google-map 
+    id="myGoogleMap" 
+    #myGoogleMap 
+    class="rounded-[16px] w-[100%]" 
+    [zoom]="zoom" 
+    [center]="center" 
+    [options]="options" 
+    (mapClick)="addMarker($event)">
+    
+    <map-marker 
+      *ngFor="let marker of markers; let i = index" 
+      [position]="marker.location"
+      [options]="marker.options"
+      (mapClick)="onMarkerClick(i)">
+    </map-marker>
+
+  </google-map>
+</div>
+
+<div class="p-[15px]" *ngIf="!isHidden" >
+  <div *ngIf="selectedTab === 'home'">
+    <div *ngIf="events === null" class="h-[150px] w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transition flex justify-center items-center">
+      <p class="font-semibold text-[20px]">No hay eventos</p>
+    </div>
+    <div *ngIf="events !== null">
+      <div class="flex justify-between items-center">
+        <p class="text-[20px] font-bold">Eventos</p>
+        <p class="underline text-[15px] font-medium" (click)="openEventsModal()">Ver Todos</p>
+      </div>
+      
+      <br>
+      <div class="flex flex-col gap-[20px]  w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transition">
+    
+        <div class="flex justify-between items-baseline">
+          <div>
+            <p class=""><span class="font-semibold text-[45px]">{{ numberDateFormat(events.startTime) }}</span>
+              <span class="font-semibold">{{ numberMonthFormat(events.startTime) }}</span></p>
+          </div>
+     
+          <p>{{ startFormat(events.startTime) }} - {{ endFormat(events.endTime) }}</p>
+        </div>
+    
+        <div>
+          <p class="font-semibold text-[20px] truncate">{{ events.description.toUpperCase() }}</p>
+          <div class="flex gap-2 items-center w-full">
+            <div class="flex justify-between w-full items-center">
+              <div class="flex gap-[5px] items-center">
+                <ion-icon size="large" name="location"></ion-icon>
+                <p class="font-medium text-[16px]">Paseo de las Hadas</p>
+              </div>   
+              
+              <ion-chip (click)="launch(events)">
+                Ubicación
+              </ion-chip>
+            </div>  
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <div *ngIf="selectedTab === 'radio'">
+    <div *ngIf="promotions === null" class="h-[150px] w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transition flex justify-center items-center">
+      <p class="font-semibold text-[20px]">No hay promociones</p>
+    </div>
+
+    <div *ngIf="promotions !== null">
+      <div class="flex justify-between items-center">
+        <p class="text-[30px] font-bold">Promociones</p>
+        <p class="underline text-[15px] font-medium" (click)="openPromotionsModal()">Ver Todos</p>
+      </div>
+      
+      <br>
+      <div class="flex flex-col gap-[20px]  w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transition">
+        <div class="flex justify-between items-baseline">
+          <div>
+            <p class=""><span class="font-semibold text-[45px]">{{ numberDateFormat(promotions.startTime) }}</span>
+              <span class="font-semibold">{{ numberMonthFormat(promotions.startTime) }}</span></p>
+          </div>
+     
+          <p>{{ startFormat(promotions.startTime) }} - {{ endFormat(promotions.endTime) }}</p>
+        </div>
+        <div class="w-full flex justify-between items-baseline">
+          <p class="font-semibold text-[30px]">Cafe 2x1</p>
+          <ion-chip (click)="launch(promotions)">
+            Ubicación
+          </ion-chip>
+          
+        </div>
+    
+        <div>
+          <img [src]="promotions.imageURL"  class="rounded-[32px]  w-full"/>
+        </div>
+    
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+</ion-content>
+
+<ion-tab-bar slot="bottom">
+  <ion-tab-button 
+    tab="home" 
+    (click)="selectedTab = 'home'" 
+    [ngClass]="{'active-tab': selectedTab === 'home'}"
+    >
+    <ion-icon name="calendar"></ion-icon>
+    <ion-label>Eventos</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button 
+    tab="radio" 
+    (click)="selectedTab = 'radio'" 
+    [ngClass]="{'active-tab': selectedTab === 'radio'}"
+  >
+    <ion-icon name="sparkles"></ion-icon>
+    <ion-label>Promociones</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button 
+    (click)="openEvidenceModal()" 
+  >
+    <ion-icon name="document"></ion-icon>
+    <ion-label>Evidencias</ion-label>
+</ion-tab-button>
+
+</ion-tab-bar>
+
+
+

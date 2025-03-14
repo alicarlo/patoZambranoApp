@@ -1,0 +1,41 @@
+<ion-header [translucent]="false"   class="ion-no-border">
+  <ion-toolbar class="mt-[30px]" color="gray">
+    <ion-buttons slot="end" (click)="closeMenu()">
+      <ion-button class="p-2 rounded-full bg-white flex items-center justify-center">
+        <ion-icon size="large" name="close" class="text-black"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense" class="rm-padding">
+    <ion-toolbar class="rm-padding" color="cream">
+      <ion-title class="rm-padding" size="large">Verificacion </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <br>
+  <div class="banner">
+    <h2 class="font-semibold">Verifiquemos tu
+      <span>correo electrónico</span>
+    </h2>
+    <br>
+
+    <ion-text color="medium">
+    <h5><small>Es importante verificar que tienes acceso a tu cuenta de correo. Te hemos enviado un mensaje para que verifiques
+      tu cuenta. Cuando la hayas verificado, por favor presiona el siguiente botón.</small></h5></ion-text>
+    
+      <br>
+    <ion-button color="dark" expand="block" size="large" (click)="closeMenu()">Ingresar
+    </ion-button>
+  </div>
+
+  <div class="ion-padding">
+    <h2 class="ion-text-center">¿No te llegó un correo electrónico?</h2>
+    <ion-text color="medium">
+      <h5><small>Revisa si llegó en tu bandeja de spam y si no lo encuentras no te preocupes, te lo podemos volver a enviar.</small></h5>
+    </ion-text>
+    <ion-button color="dark2" expand="block" fill="outline" (click)="sendVerificationMail()">Reenviar correo</ion-button>
+  </div>
+</ion-content>
+

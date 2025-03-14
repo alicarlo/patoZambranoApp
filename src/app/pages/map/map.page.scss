@@ -1,0 +1,9 @@
+.map-container {
+  width: 100% !important;  /* O usa cualquier valor que permita el 100% del espacio disponible */
+}
+
+ion-tab-button.active-tab {
+  color: #2c2929; /* Cambia el color del texto e ícono */
+  // background: #5f5f5f; /* Cambia el fondo del botón */
+  border-radius: 10px; /* Opcional: Redondea los bordes */
+}
