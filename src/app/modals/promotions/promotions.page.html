@@ -21,10 +21,10 @@
 
         <div class="flex justify-between">
           <div>
-            <p class=""><span class="font-semibold text-[45px]">{{ numberDateFormat(promotion.startTime) }}</span><span class="font-semibold">
-              {{ numberMonthFormat(promotion.startTime) }}
+            <p class=""><span class="font-semibold text-[45px]">{{ numberDateFormat(promotion.startDate) }}</span><span class="font-semibold">
+              {{ numberMonthFormat(promotion.startDate) }}
             </span></p>
-            <p>{{ startFormat(promotion.startTime) }} - {{ endFormat(promotion.endTime) }}</p>
+            <p>{{ startFormat(promotion.startDate) }} - {{ endFormat(promotion.endDate) }}</p>
           </div>
      
           <ion-buttons slot="end" (click)="socialSharing(promotion)">
@@ -34,17 +34,18 @@
           </ion-buttons>
         </div>
     
-        <div class="flex justify-between">
-          <p class="font-semibold text-[20px]">{{ promotion.description.toUpperCase() }}</p>
+        <div class="flex flex-col justify-between">
+          <p class="font-semibold text-[20px]">{{ promotion.title.toUpperCase() }}</p>
+          <p class="text-gray-600 text-[14px]">{{ promotion.description }}</p>
         </div>
 
-
+        <!--
           <div class="flex justify-end w-full items-center">
             <ion-chip (click)="launch(promotion)">
               Ubicación
             </ion-chip>
           </div>  
-    
+        -->
     
         <div>
           <img [src]="promotion.imageURL"  class="rounded-[32px]"/>

@@ -29,6 +29,7 @@ import { CreateEvidencePageModule } from './modals/create-evidence/create-eviden
 import { VerifyModalPageModule } from './modals/verify-modal/verify-modal.module';
 import { PromotionsPageModule } from './modals/promotions/promotions.module';
 import { MessagesPageModule } from './modals/messages/messages.module'; 
+import { ForgotPasswordPageModule } from './modals/forgot-password/forgot-password.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -52,7 +53,8 @@ import { MessagesPageModule } from './modals/messages/messages.module';
     CreateEvidencePageModule,
     VerifyModalPageModule,
     PromotionsPageModule,
-    MessagesPageModule
+    MessagesPageModule,
+    ForgotPasswordPageModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, LaunchNavigator],

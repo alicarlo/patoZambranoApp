@@ -115,8 +115,6 @@ export class MapPage implements OnInit {
   async getToken() {
     FCM.getToken()
       .then(async (response) => {
-        console.log(response)
-        console.log(response.token)
         this._AuthService.updateToken(response.token, this.user.idDoc);
       })
       .catch((error) => {
@@ -138,14 +136,11 @@ export class MapPage implements OnInit {
       if (this.coords.latitude !== 0 && this.coords.longitude !== 0) {
         // this.presentToast('Ubicacion obtenida','success');
         if (this.markers.length === 0) {
-          console.log('entro');
-          console.log(coordinates.coords.latitude)
-          console.log(coordinates.coords.longitude)
           this.markers.push({
             data: null,
             location: {
               lat: coordinates.coords.latitude,
-              lng: coordinates.coords.longitude, // ❌ Estabas usando lat en ambas
+              lng: coordinates.coords.longitude,
             },
             options: {
 							animation: google.maps.Animation.DROP,
@@ -170,6 +165,8 @@ export class MapPage implements OnInit {
 					lat: coordinates.coords.latitude,
 					lng: coordinates.coords.longitude,
 				}
+
+        this.zoom = 16
       }
       return;
     } catch (error) {
@@ -190,14 +187,22 @@ export class MapPage implements OnInit {
       const lat = event.latLng.lat();
       const lng = event.latLng.lng();
       
-      this.markers.push({ location: { lat, lng } }); // Solo un marcador, si quieres varios usa push()
+      this.markers.push({ location: { lat, lng } });
       this.presentToast();
     }
   }
 
   onMarkerClick(index: number) {
+
+    if (index === 0) return;
     const marker = this.markers[index];
     this.openCreateEvidenceModal(marker);
+  }
+
+  clearDelete() {
+    let aux = this.markers[0];
+    this.markers = [];
+    this.markers.push(aux);
   }
 
   close() {
@@ -289,13 +294,11 @@ export class MapPage implements OnInit {
       const promotions: any = await this._PromotionsService.getPromotions();
       if (promotions) {
         this.promotions = promotions[0];
-        console.log(this.promotions)
       }
     }
 
     async getEvents() {
       const events: any = await this._EventsService.getEvents();
-      console.log(events)
       if (events) {
         this.events = events[0];
       }

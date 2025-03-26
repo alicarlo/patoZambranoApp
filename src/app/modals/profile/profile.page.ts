@@ -91,7 +91,6 @@ export class ProfilePage implements OnInit {
      
       await loading.present();
       const userData: any = await this._AuthService.loginGetDataFire(this.user.uid);
-      console.log(userData);
 
       this.signupForm.setValue({
         name: userData.name,

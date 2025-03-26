@@ -57,7 +57,6 @@ export class CreateEvidencePage implements OnInit {
   ) {
     const data = this._NavParams.get('value');
     this.location = data.location;
-    console.log(this.location)
    }
 
   async ngOnInit() {
@@ -190,10 +189,7 @@ export class CreateEvidencePage implements OnInit {
     const dateTimeId = moment().format('DD-MM-YYYY-hh:mm:ss');
     let responseAudio: any = '';
     let responseImage: any = '';
-    console.log('veoooo')
-    console.log(this.audioUrl)
     if (this.audioUrl !== '') {
-      console.log('veo333333')
       responseAudio = await this.uploadAudio(dateTimeId);
       if (responseAudio === '') {
         loading.dismiss();
@@ -201,13 +197,8 @@ export class CreateEvidencePage implements OnInit {
       }
     }
 
-
-    console.log('veoooo')
-    console.log(this.imageUrl)
     if (this.imageUrl !== '') {
-      console.log('veo44444')
       responseImage = await  this.uploadImage(dateTimeId);
-      console.log(responseImage)
       if (responseImage === '') {
         loading.dismiss();
         return
@@ -335,7 +326,6 @@ export class CreateEvidencePage implements OnInit {
 
           this.downloadURL = fileRef.getDownloadURL();
           this.downloadURL.subscribe(async (url: any) => {
-            console.log(url)
 						resolve(url);
           },(e: any) => {
 						resolve('')

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { VerifyModalPage } from 'src/app/modals/verify-modal/verify-modal.page';
+import { ForgotPasswordPage } from '../../modals/forgot-password/forgot-password.page';
 
 @Component({
   selector: 'app-login',
@@ -126,6 +127,16 @@ export class LoginPage implements OnInit {
       }
     });
     modal.present()
+  }
+
+  async goToForgotPassword() {
+    const modal = await this._ModalController.create({
+      component: ForgotPasswordPage,
+      handle: true,
+      showBackdrop: true,
+      backdropDismiss: false,
+    });
+    modal.present();
   }
 
 }

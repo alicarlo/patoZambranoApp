@@ -31,6 +31,10 @@ const routes: Routes = [
   {
     path: 'messages',
     loadChildren: () => import('./modals/messages/messages.module').then( m => m.MessagesPageModule)
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./modals/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   }
 ];
 

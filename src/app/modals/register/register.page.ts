@@ -158,7 +158,6 @@ export class RegisterPage implements OnInit {
         errorMessage = 'Opss error.';
       }
 
-      console.log(errorMessage);
       this.presentToast(errorMessage, 'danger');
     }
   }

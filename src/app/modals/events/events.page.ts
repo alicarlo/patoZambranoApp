@@ -53,7 +53,6 @@ export class EventsPage implements OnInit {
 
    async getEvents() {
     const events: any = await this._EventsService.getEvents();
-    console.log(events)
     if (events) {
       this.events = events;
     }
@@ -108,7 +107,6 @@ export class EventsPage implements OnInit {
           extras: {navigate: 'yes' },
         };
         
-        console.log(this.events)
         this.launchNavigator.navigate([parseInt(events.lat), parseInt(events.lng)], options).then(
           // success => // console.log('Launched navigator'),
           // error => // console.log('Error launching navigator', error)

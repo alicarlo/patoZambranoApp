@@ -36,13 +36,10 @@ export class EvidencePage implements OnInit {
 
   async getEvidence() {
     const evidence: any = await this._EvidenceService.getEvidence(this.user.uid);
-    // evidence
-    console.log(evidence)
     if (evidence === false) {
       this.loading = 1;
     }else{
       this.evidence = evidence;
-      console.log(this.evidence)
       this.loading = 2;
     }
   }
@@ -67,7 +64,6 @@ export class EvidencePage implements OnInit {
   }
 
   async updateEvidence(evidence: any, flag: boolean, index: number) {
-    console.log(evidence)
     if (this.title === '' || this.description === '') {
       this.presentToast('Todos los campos son obligatorios', 'warning');
     }
@@ -106,14 +102,14 @@ export class EvidencePage implements OnInit {
   }
 
   openMap(data: any) {
-    const lat = parseInt(data.lat); // Latitud del marcador
-    const lng = parseInt(data.lng); // Longitud del marcador
+    const lat = parseInt(data.latEvidence); // Latitud del marcador
+    const lng = parseInt(data.lngEvidence); // Longitud del marcador
 
     const options: LaunchNavigatorOptions = {
       app: this.launchNavigator.APP.GOOGLE_MAPS
     };
 
-    this.launchNavigator.navigate([lat, lng], options)
+    this.launchNavigator.navigate([data.latEvidence, data.lngEvidence], options)
       .then(() => console.log('Google Maps abierto'))
       .catch(error => console.error('Error abriendo Google Maps:', error));
   }

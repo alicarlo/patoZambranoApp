@@ -38,6 +38,7 @@ export class AuthService {
   async clearData() {
 		//localStorage.removeItem('userData');
     await Storage.remove({ key: 'userDataPato' });
+    await Storage.clear();
     return;
 		// return
 	}
@@ -52,8 +53,8 @@ export class AuthService {
     }
   }
 
-  signout() {
-    this.clearData();
+  async signout() {
+    await this.clearData();
     return this.auth.signOut();
   }
 
@@ -120,6 +121,10 @@ export class AuthService {
     return this.auth.currentUser.then((currentUser: any) => {
       return currentUser.sendEmailVerification();
     })
+  }
+
+  sendPasswordResetEmail(email: string): Promise<void> {
+    return this.auth.sendPasswordResetEmail(email);
   }
 
   async createUser(user: UserForm , uid: string, auth: any,  keyConst: any) {
@@ -200,6 +205,30 @@ export class AuthService {
         })
         .then(() => {
           resolve(true);
+        });
+    });
+  }
+
+  async getMessagesByUser(uid: string) {
+    return new Promise((resolve) => {
+      this.afs
+        .collection('notify')
+        .ref.where('uidUser', '==', uid)
+        .get()
+        .then(function (doc) {
+          if (!doc.empty) {
+            let dataSend: any = [];
+            doc.forEach((element) => {
+              dataSend.push(element.data() as any);
+            });
+            resolve(dataSend);
+          } else {
+            resolve(false);
+          }
+        })
+        .catch(function (error) {
+          resolve(false);
+          console.error('Error getting document:', error);
         });
     });
   }

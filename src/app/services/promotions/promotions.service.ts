@@ -11,7 +11,7 @@ export class PromotionsService {
 
   async getPromotions() {
     return new Promise((resolve) => {
-			this.afs.collection('events').ref.get().then((doc) => {
+			this.afs.collection('promotions').ref.where('active', '==', true).get().then((doc) => {
 				if(doc.empty){
 					resolve(false);
 				}else{

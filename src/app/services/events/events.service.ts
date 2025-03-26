@@ -12,7 +12,7 @@ export class EventsService {
 
   async getEvents() {
     return new Promise((resolve) => {
-			this.afs.collection('events').ref.get().then((doc) => {
+			this.afs.collection('events').ref.where('active', '==', true).get().then((doc) => {
 				if(doc.empty){
 					resolve(false);
 				}else{

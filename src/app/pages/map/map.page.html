@@ -45,12 +45,23 @@
 
 
 <div [ngStyle]="{'visibility': isHidden ? 'hidden' : 'visible'}" class="flex justify-center items-center   p-[15px]">
-  <div class="absolute z-[9999] bottom-[75%] right-[80%]">
-    <ion-buttons slot="end" (click)="getGps()">
-      <ion-button class="p-2 rounded-full flex items-center bg-[#2f2f2f] justify-center h-[54px] w-[54px]">
-        <ion-icon size="large" name="locate" class="text-white"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+  <div class="absolute z-[9999] bottom-[78%] right-[65%]">
+
+    <div class="flex gap-[10px]">
+      <ion-buttons slot="end" (click)="getGps()">
+        <ion-button class="p-2 rounded-full flex items-center bg-[#2f2f2f] justify-center h-[54px] w-[54px]">
+          <ion-icon size="large" name="locate" class="text-white"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  
+      <ion-buttons slot="end" (click)="clearDelete()">
+        <ion-button class="p-2 rounded-full flex items-center bg-[#f04141] justify-center h-[54px] w-[54px]">
+          <ion-icon size="large" name="close-circle" class="text-white"></ion-icon>
+    
+        </ion-button>
+      </ion-buttons>
+    </div>
+   
   </div>
   <google-map 
     id="myGoogleMap" 
@@ -100,7 +111,7 @@
             <div class="flex justify-between w-full items-center">
               <div class="flex gap-[5px] items-center">
                 <ion-icon size="large" name="location"></ion-icon>
-                <p class="font-medium text-[16px]">Paseo de las Hadas</p>
+                <p class="font-medium text-[16px]">{{ events.address }}</p>
               </div>   
               
               <ion-chip (click)="launch(events)">
@@ -131,14 +142,14 @@
       <div class="flex flex-col gap-[20px]  w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transition">
         <div class="flex justify-between items-baseline">
           <div>
-            <p class=""><span class="font-semibold text-[45px]">{{ numberDateFormat(promotions.startTime) }}</span>
-              <span class="font-semibold">{{ numberMonthFormat(promotions.startTime) }}</span></p>
+            <p class=""><span class="font-semibold text-[45px]">{{ numberDateFormat(promotions.startDate) }}</span>
+              <span class="font-semibold">{{ numberMonthFormat(promotions.startDate) }}</span></p>
           </div>
      
-          <p>{{ startFormat(promotions.startTime) }} - {{ endFormat(promotions.endTime) }}</p>
+          <p>{{ startFormat(promotions.startDate) }} - {{ endFormat(promotions.endDate) }}</p>
         </div>
         <div class="w-full flex justify-between items-baseline">
-          <p class="font-semibold text-[30px]">Cafe 2x1</p>
+          <p class="font-semibold text-[20px] truncate">{{ promotions.title }}</p>
           <ion-chip (click)="launch(promotions)">
             Ubicación
           </ion-chip>
