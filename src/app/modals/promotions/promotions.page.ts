@@ -74,7 +74,7 @@ export class PromotionsPage implements OnInit {
       extras: {navigate: 'yes' },
     };
 
-    this.launchNavigator.navigate([parseInt(events.lat), parseInt(events.lng)], options).then(
+    this.launchNavigator.navigate([parseFloat(events.lat), parseFloat(events.lng)], options).then(
       // success => // console.log('Launched navigator'),
       // error => // console.log('Error launching navigator', error)
     );

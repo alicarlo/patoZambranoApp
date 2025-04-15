@@ -349,7 +349,7 @@ export class MapPage implements OnInit {
         extras: {navigate: 'yes' },
       };
       
-      this.launchNavigator.navigate([parseInt(data.lat), parseInt(data.lng)], options).then(
+      this.launchNavigator.navigate([parseFloat(data.lat), parseFloat(data.lng)], options).then(
         // success => // console.log('Launched navigator'),
         // error => // console.log('Error launching navigator', error)
       );

@@ -40,7 +40,7 @@ export class EventsPage implements OnInit {
       };
       const coordinates = await Geolocation.getCurrentPosition(options)
       this.coords.latitude = coordinates.coords.latitude;
-      this.coords.longitude = coordinates.coords.latitude;
+      this.coords.longitude = coordinates.coords.longitude;
     } catch (error) {
       return;
     }
@@ -107,7 +107,9 @@ export class EventsPage implements OnInit {
           extras: {navigate: 'yes' },
         };
         
-        this.launchNavigator.navigate([parseInt(events.lat), parseInt(events.lng)], options).then(
+        console.log(events)
+        console.log(events.lat, events.lng)
+        this.launchNavigator.navigate([parseFloat(events.lat), parseFloat(events.lng)], options).then(
           // success => // console.log('Launched navigator'),
           // error => // console.log('Error launching navigator', error)
         );
