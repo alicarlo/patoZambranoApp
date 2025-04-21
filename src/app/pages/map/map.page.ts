@@ -22,6 +22,8 @@ import { LaunchNavigator, LaunchNavigatorOptions } from '@awesome-cordova-plugin
 import { PromotionsService } from 'src/app/services/promotions/promotions.service';
 import { PromotionsPage } from 'src/app/modals/promotions/promotions.page';
 import { EvidencePage } from 'src/app/modals/evidence/evidence.page';
+import { MessageDobPage } from 'src/app/modals/message-dob/message-dob.page';
+import { ProfilePage } from 'src/app/modals/profile/profile.page';
 
 declare  var google: any;
 @Component({
@@ -107,7 +109,12 @@ export class MapPage implements OnInit {
           await PushNotifications.register();
           this.getToken();
       }
-      this.getToken();
+
+      console.log(this.user)
+      if (this.user.dob === '') {
+        this.openDob();
+      }
+      
       },1500)
     
   }
@@ -226,23 +233,53 @@ export class MapPage implements OnInit {
     toast.present();
   }
 
+  async openDob() {
+    const modal = await this._ModalController.create({
+      component: MessageDobPage,
+      handle: true,
+      showBackdrop: true,
+      backdropDismiss: false,
+    });
+    modal.onDidDismiss().then((result: any) => {
+      console.log(result.data)
+      if (result.data === 1) {
+        this.openProfile();
+      }
+    });
+    modal.present();
+  }
+
+  async openProfile() {
+    // ProfilePage
+    const modal = await this._ModalController.create({
+      component: ProfilePage,
+      handle: true,
+      showBackdrop: true,
+      backdropDismiss: false,
+    });
+    modal.onDidDismiss().then((result: any) => {
+
+    });
+    modal.present();
+  }
   
 
   async openCreateEvidenceModal(data: any) {
-      const modal = await this._ModalController.create({
-        component: CreateEvidencePage,
-        handle: true,
-        showBackdrop: true,
-        backdropDismiss: false,
-        componentProps: { value: data },
-      });
-      modal.onDidDismiss().then((result: any) => {
-        if (result.data === 1) {
-          //
-        }
-      });
-      modal.present();
-    }
+    const modal = await this._ModalController.create({
+      component: CreateEvidencePage,
+      handle: true,
+      showBackdrop: true,
+      backdropDismiss: false,
+      componentProps: { value: data },
+    });
+    modal.onDidDismiss().then((result: any) => {
+      console.log(result.data)
+      if (result.data === 1) {
+        this.clearDelete();
+      }
+    });
+    modal.present();
+  }
 
     async openMenuModal() {
         const modal = await this._ModalController.create({
@@ -260,6 +297,8 @@ export class MapPage implements OnInit {
       }
 
     async openEventsModal() {
+      this._Router.navigate(['/events', { onSameUrlNavigation: 'reload' }])
+      return
       const modal = await this._ModalController.create({
         component: EventsPage,
         handle: true,

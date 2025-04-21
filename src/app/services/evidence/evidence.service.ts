@@ -11,7 +11,7 @@ export class EvidenceService {
     private afs: AngularFirestore,
   ) { }
 
-  async createEvidence(user: any, imageUrl: string, audioUrl: string, title: string, description: string, state: string, town: string,colony: string,  lat: any, lng: any, latEvidence: any, lngEvidence: any) {
+  async createEvidence(user: any, imageUrl: string, audioUrl: string, title: string, description: string, state: string, town: string,colony: string,  lat: any, lng: any, latEvidence: any, lngEvidence: any, evidenceType: any) {
       let fire1 = this.afs;
       let fire2 = this.afs;
 
@@ -43,6 +43,8 @@ export class EvidenceService {
             status: 'PENDING',
             customerId: "bnhTylS19PZVCQwtN3z8",
             customerName: "Pato Zambrano",
+            evidenceTypeName: evidenceType.name,
+            evidenceTypeUid: evidenceType.uid
           })
           .then(function (dataAux) {
             fire2.collection('evidence').doc(dataAux.id).update({
@@ -60,7 +62,7 @@ export class EvidenceService {
       });
     }
 
-    async createEvidenceByUser(idDocEvidenceSample: string,user: any, imageUrl: string, audioUrl: string, title: string, description: string, state: string, town: string, colony: string, lat: any, lng: any, latEvidence: any, lngEvidence: any) {
+    async createEvidenceByUser(idDocEvidenceSample: string,user: any, imageUrl: string, audioUrl: string, title: string, description: string, state: string, town: string, colony: string, lat: any, lng: any, latEvidence: any, lngEvidence: any, evidenceType: any) {
       let fire1 = this.afs;
       let fire2 = this.afs;
 
@@ -93,6 +95,8 @@ export class EvidenceService {
             customerId: "bnhTylS19PZVCQwtN3z8",
             customerName: "Pato Zambrano",
             idDocEvidenceSample: idDocEvidenceSample,
+            evidenceTypeName: evidenceType.name,
+            evidenceTypeUid: evidenceType.uid
           })
           .then(function (dataAux) {
             fire2.collection('users').doc(user.uid).collection('evidence').doc(dataAux.id).update({
@@ -155,6 +159,24 @@ export class EvidenceService {
             resolve(true);
           });
       });
+    }
+
+    async getEvidenceType(customerId: string) {
+      return new Promise((resolve) => {
+        this.afs.collection('evidenceType').ref.where('customerId', '==', customerId).get().then((doc) => {
+          if(doc.empty){
+            resolve(false);
+          }else{
+            let filterData: any = []
+            doc.forEach(element => {
+              filterData.push(element.data());
+            });
+            resolve(filterData)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      })
     }
 
 }

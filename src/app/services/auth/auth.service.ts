@@ -186,6 +186,8 @@ export class AuthService {
     });
   }
 
+
+
   async updateProfileUser(uid: string, userData: any) {
     return new Promise((resolve, reject) => {
       this.afs
@@ -202,6 +204,21 @@ export class AuthService {
           town: userData.town,
           postalCode: userData.postalCode,
           age: userData.age
+        })
+        .then(() => {
+          resolve(true);
+        });
+    });
+  }
+
+  async updateDob(uid: string, age: any, dob: any) {
+    return new Promise((resolve, reject) => {
+      this.afs
+        .collection('users')
+        .doc(uid)
+        .update({
+          dob: dob,
+          age: age
         })
         .then(() => {
           resolve(true);

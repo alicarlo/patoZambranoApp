@@ -9,6 +9,7 @@
 
 // import {onRequest} from "firebase-functions/v2/https";
 // import * as logger from "firebase-functions/logger";
+import * as moment from "moment-timezone";
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as express from "express";
@@ -46,6 +47,48 @@ exports.sendPushNotification = functions.https.onRequest(async (req, res,) => {
     }
   });
 });
+
+
+exports.scheduledDob = functions.pubsub.schedule("0 14 * * *").
+  timeZone("America/Los_Angeles").onRun(async (context) => {
+    const db2 = admin.firestore();
+    const currentDate = moment().tz("America/Los_Angeles").format("DD/MM");
+    console.log("ali1");
+    const customersRef = await db2.collection("customers").get();
+    const batch = db2.batch();
+    customersRef.forEach(async (doc) => {
+      console.log("ali2");
+      console.log(doc.data().isBirthdayConfig);
+      if (doc.data().isBirthdayConfig === true) {
+        const usersRef = await db2.collection("users")
+          .where("customerId", "==", doc.data().uid).get();
+        usersRef.forEach(async (doc2) => {
+          if (doc2.data().dob !== "") {
+            const formatDob = moment(doc2.data().dob).format("DD/MM");
+            console.log(formatDob);
+            console.log(currentDate);
+            if (formatDob === currentDate) {
+              if (doc2.data().token !== "") {
+                const payload = {
+                  token: doc2.data().token,
+                  notification: {
+                    title:
+                      doc.data().birthdayTitle ||
+                      "Feliz Cumpleaños",
+                    body:
+                      doc.data().birthdayDescription ||
+                      "Te deseamos un feliz día",
+                  },
+                };
+                await admin.messaging().send(payload);
+              }
+            }
+          }
+        });
+      }
+    });
+    return batch.commit();
+  });
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
 

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { PromotionsPage } from '../promotions/promotions.page';
 import { MessagesPage } from '../messages/messages.page';
+import { QrUserPage } from '../qr-user/qr-user.page';
 
 @Component({
   selector: 'app-menu',
@@ -31,19 +32,19 @@ export class MenuPage implements OnInit {
   }
 
   async openProfileModal() {
-        const modal = await this._ModalController.create({
-          component: ProfilePage,
-          handle: true,
-          showBackdrop: true,
-          backdropDismiss: false,
-        });
-        modal.onDidDismiss().then((result: any) => {
-          if (result.data === 1) {
-            //
-          }
-        });
-        modal.present();
-    }
+    const modal = await this._ModalController.create({
+      component: ProfilePage,
+      handle: true,
+      showBackdrop: true,
+      backdropDismiss: false,
+    });
+    modal.onDidDismiss().then((result: any) => {
+      if (result.data === 1) {
+        //
+      }
+    });
+    modal.present();
+}
   
     async openTermsModal() {
       const modal = await this._ModalController.create({
@@ -107,6 +108,9 @@ export class MenuPage implements OnInit {
     }
   
     async openEventsModal() {
+      this._Router.navigate(['/events', { onSameUrlNavigation: 'reload' }])
+      this.closeMenu();
+      return
       const modal = await this._ModalController.create({
         component: EventsPage,
         handle: true,
@@ -124,6 +128,21 @@ export class MenuPage implements OnInit {
     async openPromotionsModal() {
       const modal = await this._ModalController.create({
         component:  PromotionsPage,
+        handle: true,
+        showBackdrop: true,
+        backdropDismiss: false,
+      });
+      modal.onDidDismiss().then((result: any) => {
+        if (result.data === 1) {
+          //
+        }
+      });
+      modal.present();
+    }
+
+    async openQrModal() {
+      const modal = await this._ModalController.create({
+        component: QrUserPage,
         handle: true,
         showBackdrop: true,
         backdropDismiss: false,

@@ -28,6 +28,7 @@ export class LoginPage implements OnInit {
 			{type: 'maxlength', message: 'Maximo 50 caracteres'}
     ],
   };
+  showPassword: boolean = false;
   constructor(
     private _ModalController: ModalController,
     private _Router: Router,
@@ -45,7 +46,9 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   async openRegisterModal() {
     const modal = await this._ModalController.create({

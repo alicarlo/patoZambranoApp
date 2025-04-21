@@ -22,8 +22,8 @@ export class PromotionsPage implements OnInit {
       private _ToastController: ToastController
   ) { }
 
-  ngOnInit() {
-    this.getGps();
+  async ngOnInit() {
+    await this.getGps();
     this.getPromotions();
   }
 
@@ -36,7 +36,7 @@ export class PromotionsPage implements OnInit {
       };
       const coordinates = await Geolocation.getCurrentPosition(options)
       this.coords.latitude = coordinates.coords.latitude;
-      this.coords.longitude = coordinates.coords.latitude;
+      this.coords.longitude = coordinates.coords.longitude;
     } catch (error) {
       return;
     }

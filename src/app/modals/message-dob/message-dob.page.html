@@ -1,0 +1,54 @@
+<ion-header [translucent]="true" color="cream" class="ion-no-border h-[100px]">
+  <ion-toolbar color="cream" class="!pt-[30px] h-[100px]">
+    <ion-title mode="md" class="text-dark2 font-semibold text-[20px]">Fecha de cumpleaños</ion-title>
+    <ion-buttons slot="end" (click)="closeMenu('')">
+      <ion-button class="p-2 rounded-full flex items-center bg-white justify-center h-[54px] w-[54px]">
+        <ion-icon size="large" name="close" class="text-black"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="flex flex-col gap-6 items-center  w-full h-full">
+    <h1 class="">Tu fecha de nacimiento nos ayudará a personalizar tu experiencia.</h1>
+    <ion-icon class="text-[130px]" name="calendar-number" color="dark2"></ion-icon>
+
+    <div class="w-full mb-4">
+      <ion-item class="h-14 rounded border border-gray-400 flex items-center" id="open-modal" lines="none">
+        <ion-label class="color-label">
+          Fecha de cumpleaños
+          <span *ngIf="dateFormat !== ''">
+            : {{ dateFormat }}
+          </span>
+        </ion-label>
+      </ion-item>
+      <ion-modal trigger="open-modal" [cssClass]="'bottom-end'">
+        <ng-template>
+          <ion-datetime
+            (ionChange)="validDate()"
+            [(ngModel)]="dateSelect"
+            presentation="date"
+            size="cover"
+            displayFormat="DD-MMMM-YYYY"
+            [preferWheel]="true"
+            [showDefaultButtons]="true"
+            color=""
+            [doneText]="'Continuar'"
+            [cancelText]="'Cancelar'"
+          ></ion-datetime>
+        </ng-template>
+      </ion-modal>
+
+    </div>
+    <ion-button 
+      class="w-full"
+      expand="block" 
+      color="dark2" 
+      (click)="updateDate()"
+    >
+      Actualizar
+    </ion-button>
+  </div>
+  
+</ion-content>

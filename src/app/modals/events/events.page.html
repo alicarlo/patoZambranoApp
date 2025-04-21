@@ -1,4 +1,4 @@
-<ion-header [translucent]="true" color="cream" class="ion-no-border h-[100px]">
+<ion-header [translucent]="true" color="cream" class="ion-no-border h-[100px]" *ngIf="!scanActive">
   <ion-toolbar color="cream" class="!pt-[30px] h-[100px]">
     <ion-title mode="md" class="text-dark2 font-semibold text-[20px]">Eventos</ion-title>
     <ion-buttons slot="end" (click)="closeMenu()">
@@ -9,54 +9,100 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  <div *ngIf="events.length === 0" class="w-full h-full flex items-center justify-center">
-    <p class="font-semibold text-[20px]">No hay eventos</p>
-  </div>
-
-  <div *ngIf="events.length !== 0">
-    <div *ngFor="let event of events">
-      <div class="flex flex-col gap-[50px]  w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transition">
-
-        <div class="flex justify-between">
-          <div>
-            <p class=""><span class="font-semibold text-[45px]">{{ numberDateFormat(event.startTime) }}</span><span class="font-semibold">
-              {{ numberMonthFormat(event.startTime) }}
-            </span></p>
-            <p>{{ startFormat(event.startTime) }} - {{ endFormat(event.endTime) }}</p>
-          </div>
+<ion-content [fullscreen]="true" class="ion-padding" [style.--background]="scanActive ? '#00000000' : '#f7f7f7'">
+  <div *ngIf="!scanActive">
+    <div *ngIf="events.length === 0" class="w-full h-full flex items-center justify-center">
+      <p class="font-semibold text-[20px]">No hay eventos</p>
+    </div>
+  
+    <div *ngIf="events.length !== 0">
+      <div *ngFor="let event of events">
+        <div class="flex flex-col gap-[50px]  w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transition">
+  
+          <div class="flex justify-between">
+            <div>
+              <p class=""><span class="font-semibold text-[45px]">{{ numberDateFormat(event.startTime) }}</span><span class="font-semibold">
+                {{ numberMonthFormat(event.startTime) }}
+              </span></p>
+              <p>{{ startFormat(event.startTime) }} - {{ endFormat(event.endTime) }}</p>
+            </div>
+            
+  
+            <div class="flex gap-2">
+              <ion-buttons slot="end" (click)="socialSharing(event)">
+                <ion-button class="p-2 rounded-full flex items-center bg-dark2 justify-center h-[54px] w-[54px]">
+                  <ion-icon size="large" name="share-social" class="text-white"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+    
      
-          <ion-buttons slot="end" (click)="socialSharing(event)">
-            <ion-button class="p-2 rounded-full flex items-center bg-dark2 justify-center h-[54px] w-[54px]">
-              <ion-icon size="large" name="share-social" class="text-white"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </div>
-    
-        <div>
-          <p class="font-semibold text-[20px]">{{ event.description.toUpperCase() }}</p>
-          <div class="flex gap-2 items-center w-full">
-            <div class="flex justify-between w-full items-center">
-              <div class="flex gap-[5px] items-center">
-                <ion-icon size="large" name="location"></ion-icon>
-                <p class="font-medium text-[16px]">{{ event.address }}</p>
-              </div>   
-              
-              <ion-chip (click)="launch(event)">
-                Ubicación
-              </ion-chip>
-            </div>  
+              <ion-buttons slot="end" *ngIf="event.attendanceControl && event.attendanceControl === true" (click)="scanQr(event)">
+                <ion-button class="p-2 rounded-full flex items-center bg-dark2 justify-center h-[54px] w-[54px]">
+                  <ion-icon size="large" name="qr-code" class="text-white"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </div>
+         
+          </div>
+      
+          <div>
+            <p class="font-semibold text-[25px]">{{ event.name.toUpperCase() }}</p>
+            <p class="font-semibold text-[20px]">{{ event.description.toUpperCase() }}</p>
+            <div class="flex gap-2 items-center w-full">
+              <div class="flex justify-between w-full items-center">
+                <div class="flex gap-[5px] items-center">
+                  <ion-icon size="large" name="location"></ion-icon>
+                  <p class="font-medium text-[16px]">{{ event.address }}</p>
+                </div>   
+                
+                <div class="flex gap-2">
+                  <ion-chip (click)="launch(event)">
+                    Ubicación
+                  </ion-chip>
+                  
+                  <!--
+                  <ion-chip *ngIf="event.attendanceControl && event.attendanceControl === true" class="w-[60px]" (click)="scanQr(event)">
+                    <ion-icon name="qr-code"></ion-icon>
+                  </ion-chip>   
+                  -->
+                </div>
+               
+              </div>  
+            </div>
+          </div>
+      
+          <div>
+            <img [src]="event.imageURL"  class="rounded-[32px]"/>
           </div>
         </div>
-    
-        <div>
-          <img [src]="event.imageURL"  class="rounded-[32px]"/>
-        </div>
+      
+        <br>
       </div>
+    </div>
+  
+  </div>
+  
+
+  <div *ngIf="scanActive" class="relative z-10 flex flex-col items-center">
+    <div class="mt-4">
+      <div class="bg-white px-6 py-4 text-center font-semibold text-xl rounded-md mb-6">
+        Favor de escanear tu QR
+      </div>
+    </div>
     
-      <br>
+  
+    <div class="relative w-full h-[65vh] flex justify-center items-center">
+      <!-- Cuadro de escaneo -->
+      <div class="absolute w-[250px] h-[250px] border-4 border-white rounded-md z-20"></div>
+  
+      <!-- Fondo oscuro fuera del cuadro -->
+      <div class="absolute inset-0  bg-opacity-50 z-10"></div>
+    </div>
+  
+    <div class="w-full px-4 mt-6 z-10">
+      <ion-button expand="block" color="dark2" (click)="stopScanner()">Regresar</ion-button>
     </div>
   </div>
-
+  
 
 </ion-content>
