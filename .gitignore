@@ -12,6 +12,9 @@ $RECYCLE.BIN/
 *.log
 log.txt
 
+notes.txt
+aps.cer
+
 
 /.sourcemaps
 /.versions
