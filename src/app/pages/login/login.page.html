@@ -24,15 +24,20 @@
       </div>
 
 
-      <div class="mb-4">
+      <div class="mb-4 relative">
         <label for="password" class="block text-dark2 font-semibold mb-2">Contraseña</label>
         <input
           formControlName="password"
           id="password"
-          type="password"
+          [type]="showPassword ? 'text' : 'password'"
           placeholder="Ingrese su Contraseña"
           class="w-full px-4 py-3 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
         />
+        <ion-icon
+          [name]="showPassword ? 'eye-off' : 'eye'"
+          class="absolute right-3 top-[65%] transform -translate-y-1/2 text-xl text-gray-600 cursor-pointer"
+          (click)="togglePasswordVisibility()"
+        ></ion-icon>
       </div>
       <div class="error-messages">
         <ng-container *ngFor="let error of error_messages.password">

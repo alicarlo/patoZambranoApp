@@ -22,8 +22,8 @@ export class PromotionsPage implements OnInit {
       private _ToastController: ToastController
   ) { }
 
-  ngOnInit() {
-    this.getGps();
+  async ngOnInit() {
+    await this.getGps();
     this.getPromotions();
   }
 
@@ -74,7 +74,7 @@ export class PromotionsPage implements OnInit {
       extras: {navigate: 'yes' },
     };
 
-    this.launchNavigator.navigate([parseInt(events.lat), parseInt(events.lng)], options).then(
+    this.launchNavigator.navigate([parseFloat(events.lat), parseFloat(events.lng)], options).then(
       // success => // console.log('Launched navigator'),
       // error => // console.log('Error launching navigator', error)
     );

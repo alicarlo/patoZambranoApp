@@ -46,6 +46,8 @@ export class CreateEvidencePage implements OnInit {
   colony: string = '';
   coords: any = { latitude: 0, longitude: 0};
   location: any = { lat: 0, lng: 0 };
+  evidenceType: any = [];
+  evidenceTypeSelect: any = null;
   constructor(
     private _ModalController: ModalController,
     private _ToastController: ToastController,
@@ -61,10 +63,16 @@ export class CreateEvidencePage implements OnInit {
 
   async ngOnInit() {
     this.user = await this._AuthService.getDataUser();
+    this.evidenceType = await this._EvidenceService.getEvidenceType(this.user.customerId);
+    console.log(this.evidenceType)
   }
 
   closeMenu() {
     return this._ModalController.dismiss();
+  }
+
+  close() {
+    return this._ModalController.dismiss(1);
   }
 
   async pickImage() {
@@ -156,7 +164,7 @@ export class CreateEvidencePage implements OnInit {
   }
 
   async send() {
-
+    console.log(this.evidenceTypeSelect)
     if (this.title === '') {
       this.presentToast('Debes ingresar un titulo', 'warning');
       return;
@@ -181,6 +189,12 @@ export class CreateEvidencePage implements OnInit {
       this.presentToast('Debes ingresar una colonia', 'warning');
       return;
     }
+
+    if (this.evidenceTypeSelect === null) {
+      this.presentToast('Debes ingresar un tipo de evidencia', 'warning');
+      return;
+    }
+    
     const loading = await this._LoadingController.create({
 			message: 'Subiendo registro...',
 		});
@@ -220,7 +234,8 @@ export class CreateEvidencePage implements OnInit {
         this.coords.latitude,
         this.coords.longitude,
         this.location.lat,
-        this.location.lng
+        this.location.lng,
+        this.evidenceTypeSelect
       );
 
 
@@ -237,11 +252,13 @@ export class CreateEvidencePage implements OnInit {
         this.coords.latitude,
         this.coords.longitude,
         this.location.lat,
-        this.location.lng
+        this.location.lng,
+        this.evidenceTypeSelect
       );
 
       loading.dismiss();
       this.presentToast('Evidencia creada', 'success');
+      this.close();
       this.duration = 0;
       this.title = '';
       this.description = '';
@@ -340,4 +357,12 @@ export class CreateEvidencePage implements OnInit {
 			})
 		})
 	}
+
+  async getEvidenceType() {
+    return new Promise((resolve) => {
+      this._EvidenceService.getEvidenceType(this.user.customerId).then((res: any) => {
+        resolve(res);
+      })
+    })
+  }
 }

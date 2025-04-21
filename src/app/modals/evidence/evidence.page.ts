@@ -102,8 +102,8 @@ export class EvidencePage implements OnInit {
   }
 
   openMap(data: any) {
-    const lat = parseInt(data.latEvidence); // Latitud del marcador
-    const lng = parseInt(data.lngEvidence); // Longitud del marcador
+    const lat = parseFloat(data.latEvidence); // Latitud del marcador
+    const lng = parseFloat(data.lngEvidence); // Longitud del marcador
 
     const options: LaunchNavigatorOptions = {
       app: this.launchNavigator.APP.APPLE_MAPS,

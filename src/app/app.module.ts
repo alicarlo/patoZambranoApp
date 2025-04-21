@@ -7,6 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LaunchNavigator } from '@awesome-cordova-plugins/launch-navigator/ngx';
+import { QrCodeComponent } from 'ng-qrcode';
 
 /*** Angular Fire ****/
 import { AngularFireModule } from '@angular/fire/compat';
@@ -32,6 +33,8 @@ import { MessagesPageModule } from './modals/messages/messages.module';
 import { ForgotPasswordPageModule } from './modals/forgot-password/forgot-password.module';
 import { DeleAccountPageModule } from './modals/dele-account/dele-account.module';
 import { SettingsPageModule } from './modals/settings/settings.module';
+import { QrUserPageModule } from './modals/qr-user/qr-user.module';
+import { MessageDobPageModule } from './modals/message-dob/message-dob.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -58,7 +61,10 @@ import { SettingsPageModule } from './modals/settings/settings.module';
     MessagesPageModule,
     ForgotPasswordPageModule,
     DeleAccountPageModule,
-    SettingsPageModule 
+    SettingsPageModule,
+    QrUserPageModule,
+    MessageDobPageModule,
+    QrCodeComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, LaunchNavigator],
