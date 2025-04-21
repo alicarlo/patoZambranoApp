@@ -36,7 +36,7 @@ export class PromotionsPage implements OnInit {
       };
       const coordinates = await Geolocation.getCurrentPosition(options)
       this.coords.latitude = coordinates.coords.latitude;
-      this.coords.longitude = coordinates.coords.latitude;
+      this.coords.longitude = coordinates.coords.longitude;
     } catch (error) {
       return;
     }
@@ -69,7 +69,7 @@ export class PromotionsPage implements OnInit {
     const coordinatesCurrent = this.coords.latitude+','+this.coords.longitude;
     const options: LaunchNavigatorOptions = {
       start: coordinatesCurrent,
-      app: this.launchNavigator.APP.GOOGLE_MAPS,
+      app: this.launchNavigator.APP.APPLE_MAPS,
       launchModeGoogleMaps:  'turn-by-turn',
       extras: {navigate: 'yes' },
     };

@@ -60,6 +60,13 @@
     </ion-label>
   </ion-item>
 
+  <ion-item (click)="openSettingsModal()" class="mt-[10px] rounded-[16px]">
+    <ion-icon slot="start" name="settings" class="text-dark2"></ion-icon>
+    <ion-label>
+      <p>Configuración</p>
+    </ion-label>
+  </ion-item>
+
   <!-- Cerrar Sesión -->
   <ion-item  class="mt-[20px] rounded-[16px]" (click)="signOut()">
     <ion-icon slot="start" name="close" color="danger"></ion-icon>

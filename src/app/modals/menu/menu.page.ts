@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { PromotionsPage } from '../promotions/promotions.page';
 import { MessagesPage } from '../messages/messages.page';
+import { SettingsPage } from '../settings/settings.page';
 
 @Component({
   selector: 'app-menu',
@@ -136,6 +137,20 @@ export class MenuPage implements OnInit {
       modal.present();
     }
        
+    async openSettingsModal() {
+      const modal = await this._ModalController.create({
+        component: SettingsPage,
+        handle: true,
+        showBackdrop: true,
+        backdropDismiss: false,
+      });
+      modal.onDidDismiss().then((result: any) => {
+        if (result.data === 1) {
+          this.signOut();
+        }
+      });
+      modal.present();
+    }
 
     signOut() {
       this._AuthService.signout();

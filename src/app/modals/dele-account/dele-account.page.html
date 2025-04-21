@@ -1,0 +1,40 @@
+<ion-header [translucent]="true" color="cream" class="ion-no-border h-[100px]">
+  <ion-toolbar color="cream" class="!pt-[30px] h-[100px]">
+    <ion-title mode="md" class="text-dark2 font-semibold text-[20px]">Cuenta de Usuario</ion-title>
+    <ion-buttons slot="end" (click)="closeMenu()">
+      <ion-button class="p-2 rounded-full flex items-center bg-white justify-center h-[54px] w-[54px]">
+        <ion-icon size="large" name="close" class="text-black"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title mode="ios">Eliminar Usuario</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="text-center">
+    <ion-icon name="sad-outline" size="large" color="medium"></ion-icon>
+    <h2>¡Lamentamos tu partida!</h2>
+    <br />
+    <p class="text-center">Nos entristece que decidas dejar la aplicación. Si necesitas volver, siempre serás bienvenido.</p>
+  </div>
+  <br />
+  <ion-item>
+    <ion-label class="text-center" position="stacked">Correo Electrónico</ion-label>
+    <ion-input type="email" [(ngModel)]="email" (ionBlur)="validateEmail()" required></ion-input>
+  </ion-item>
+  <ion-text color="danger" *ngIf="!isValidEmail && email">Error en el formato de correo</ion-text>
+
+  <ion-button
+    expand="block"
+    color="danger"
+    (click)="confirmDelete()"
+    class="ion-margin-top"
+    [disabled]="!isValidEmail || !email"
+  >
+    Confirmar Eliminación
+  </ion-button>
+</ion-content>

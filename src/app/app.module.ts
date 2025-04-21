@@ -30,6 +30,8 @@ import { VerifyModalPageModule } from './modals/verify-modal/verify-modal.module
 import { PromotionsPageModule } from './modals/promotions/promotions.module';
 import { MessagesPageModule } from './modals/messages/messages.module'; 
 import { ForgotPasswordPageModule } from './modals/forgot-password/forgot-password.module';
+import { DeleAccountPageModule } from './modals/dele-account/dele-account.module';
+import { SettingsPageModule } from './modals/settings/settings.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -54,7 +56,9 @@ import { ForgotPasswordPageModule } from './modals/forgot-password/forgot-passwo
     VerifyModalPageModule,
     PromotionsPageModule,
     MessagesPageModule,
-    ForgotPasswordPageModule
+    ForgotPasswordPageModule,
+    DeleAccountPageModule,
+    SettingsPageModule 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, LaunchNavigator],

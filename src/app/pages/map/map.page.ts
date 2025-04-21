@@ -115,9 +115,11 @@ export class MapPage implements OnInit {
   async getToken() {
     FCM.getToken()
       .then(async (response) => {
+        console.log('token:'+response.token)
         this._AuthService.updateToken(response.token, this.user.idDoc);
       })
       .catch((error) => {
+        console.log('error:'+error)
         // clearconsole.error(error);
       });
   }
@@ -129,9 +131,12 @@ export class MapPage implements OnInit {
         timeout: 200,
         maximumAge: 0
       };
+
+      console.log('gps1');
       const coordinates = await Geolocation.getCurrentPosition(options)
+      console.log('gps2:'+ coordinates);
       this.coords.latitude = coordinates.coords.latitude;
-      this.coords.longitude = coordinates.coords.latitude;
+      this.coords.longitude = coordinates.coords.longitude;
  
       if (this.coords.latitude !== 0 && this.coords.longitude !== 0) {
         // this.presentToast('Ubicacion obtenida','success');
@@ -337,18 +342,21 @@ export class MapPage implements OnInit {
 
 
     launch(data: any) {
-      if (this.coords.latitude === 0 && this.coords.latitude === 0) {
+      if (this.coords.latitude === 0 && this.coords.longitude === 0) {
         this.presentToast('Tu Ubicacion es requerida', 'warning');
         return;
       }
-      const coordinatesCurrent = this.coords.latitude+','+this.coords.latitude;
+      const coordinatesCurrent = this.coords.latitude+','+this.coords.longitude;
       const options: LaunchNavigatorOptions = {
         start: coordinatesCurrent,
-        app: this.launchNavigator.APP.GOOGLE_MAPS,
+        app: this.launchNavigator.APP.APPLE_MAPS,
         launchModeGoogleMaps:  'turn-by-turn',
         extras: {navigate: 'yes' },
       };
       
+      console.log(coordinatesCurrent);
+      console.log(data.lat)
+      console.log(data.lng)
       this.launchNavigator.navigate([parseInt(data.lat), parseInt(data.lng)], options).then(
         // success => // console.log('Launched navigator'),
         // error => // console.log('Error launching navigator', error)

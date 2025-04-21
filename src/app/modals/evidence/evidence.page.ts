@@ -106,7 +106,7 @@ export class EvidencePage implements OnInit {
     const lng = parseInt(data.lngEvidence); // Longitud del marcador
 
     const options: LaunchNavigatorOptions = {
-      app: this.launchNavigator.APP.GOOGLE_MAPS
+      app: this.launchNavigator.APP.APPLE_MAPS,
     };
 
     this.launchNavigator.navigate([data.latEvidence, data.lngEvidence], options)

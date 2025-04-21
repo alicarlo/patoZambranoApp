@@ -97,17 +97,17 @@ export class RegisterPage implements OnInit {
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       secondLastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
-      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]], // Solo 10 dígitos numéricos
-      address: ['', [Validators.required]],
+      phoneNumber: ['', []], // Solo 10 dígitos numéricos
+      address: ['', []],
       colony: ['', [Validators.required]],
       state: ['', [Validators.required]],
       town: ['', [Validators.required]],
       postalCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]], // Solo 5 dígitos numéricos
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      dob: ['', Validators.compose([Validators.required])],
-      gender: ['', Validators.compose([Validators.required])],
-      age: ['', Validators.compose([Validators.required])],
+      dob: ['', []],
+      gender: ['', []],
+      age: ['', []],
     });
   }
 
