@@ -33,6 +33,7 @@ import { MessagesPageModule } from './modals/messages/messages.module';
 import { ForgotPasswordPageModule } from './modals/forgot-password/forgot-password.module';
 import { QrUserPageModule } from './modals/qr-user/qr-user.module';
 import { MessageDobPageModule } from './modals/message-dob/message-dob.module';
+import { AdminRegisterListPageModule } from './modals/admin-register-list/admin-register-list.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -60,7 +61,8 @@ import { MessageDobPageModule } from './modals/message-dob/message-dob.module';
     ForgotPasswordPageModule,
     QrUserPageModule,
     MessageDobPageModule,
-    QrCodeComponent
+    QrCodeComponent,
+    AdminRegisterListPageModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, LaunchNavigator],

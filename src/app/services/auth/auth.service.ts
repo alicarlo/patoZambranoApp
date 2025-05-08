@@ -31,6 +31,7 @@ export class AuthService {
     const { value } = await Storage.get({ key: 'userDataPato' });
     if (value) {
       const user = JSON.parse(value);
+      console.log(user)
       return user;
     }
 	}
@@ -39,6 +40,7 @@ export class AuthService {
 		//localStorage.removeItem('userData');
     await Storage.remove({ key: 'userDataPato' });
     await Storage.clear();
+    console.log('clean')
     return;
 		// return
 	}

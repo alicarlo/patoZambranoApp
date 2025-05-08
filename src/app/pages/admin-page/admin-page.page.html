@@ -1,0 +1,88 @@
+<ion-header [translucent]="true" color="cream" class="ion-no-border h-[100px]" *ngIf="!scanActive">
+  <ion-toolbar color="cream" class="!pt-[30px] h-[100px]" [style.background]="scanActive ? '#00000000' : '#ffffff'">
+    <ion-title mode="md" class="text-dark2 font-semibold text-[20px]">Pato App - Administrador</ion-title>
+    <ion-buttons slot="end" (click)="close()">
+      <ion-button class="p-2 rounded-full flex items-center bg-danger justify-center h-[54px] w-[54px]">
+        <ion-icon size="large" name="close" class="text-white"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding" [style.--background]="scanActive ? '#00000000' : '#ffffff'">
+  <ion-header collapse="condense" *ngIf="!scanActive">
+    <ion-toolbar>
+      <ion-title size="large">Administrador</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngIf="!scanActive">
+    <div *ngFor="let data of dataList" >
+      <div class="w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transitiont mt-4">
+        <div class="font-medium">
+          <p class="">Nombre: {{ data.name }}</p>
+          <p>Descripcion:  {{ data.description }}</p>
+          <p>${{ data.cost }}</p>
+          <p>Cantidad: {{ data.actualAmount }} /{{ data.totalAmount }}</p>
+        </div>
+  
+        <div class="flex w-full justify-end">
+
+          <div>
+            <ion-chip  class="w-[60px]" (click)="usersModals(data)" >
+              <ion-icon name="eye"></ion-icon>
+            </ion-chip>  
+
+            <ion-chip  class="" (click)="newUserAlert(data)">
+              <p>Registro sin cuenta</p>
+            </ion-chip>   
+  
+            <ion-chip  class="w-[60px]" (click)="qtyAlert(data)">
+              <ion-icon name="qr-code"></ion-icon>
+            </ion-chip>  
+          </div>
+           
+        </div>
+      </div>
+    </div>   
+  </div>
+ 
+
+  <div *ngIf="scanActive" class="relative z-10 flex flex-col items-center">
+    <div class="mt-4">
+      <div class="bg-white px-6 py-4 text-center font-semibold text-xl rounded-md mb-6">
+        Favor de escanear el QR
+      </div>
+    </div>
+    
+  
+    <div class="relative w-full h-[65vh] flex justify-center items-center">
+      <!-- Cuadro de escaneo -->
+      <div class="absolute w-[250px] h-[250px] border-4 border-white rounded-md z-20"></div>
+  
+      <!-- Fondo oscuro fuera del cuadro -->
+      <div class="absolute inset-0  bg-opacity-50 z-10"></div>
+    </div>
+  
+    <div class="w-full px-4 mt-6 z-10">
+      <ion-button expand="block" color="dark2" (click)="stopScanner()">Regresar</ion-button>
+    </div>
+  </div>
+
+</ion-content>
+
+
+<!--
+<ion-tab-bar slot="bottom" *ngIf="!scanActive">
+
+
+  <ion-tab-button 
+    (click)="usersModals()" 
+  >
+    <ion-icon name="document-text"></ion-icon>
+    <ion-label>Registros</ion-label>
+  </ion-tab-button>
+
+</ion-tab-bar>
+-->
+

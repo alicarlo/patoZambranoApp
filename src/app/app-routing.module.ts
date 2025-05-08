@@ -40,6 +40,14 @@ const routes: Routes = [
     path: 'events',
     loadChildren: () => import('./modals/events/events.module').then( m => m.EventsPageModule)
   },
+  {
+    path: 'admin-page',
+    loadChildren: () => import('./pages/admin-page/admin-page.module').then( m => m.AdminPagePageModule)
+  },
+  {
+    path: 'admin-register-list',
+    loadChildren: () => import('./modals/admin-register-list/admin-register-list.module').then( m => m.AdminRegisterListPageModule)
+  },
 ];
 
 @NgModule({

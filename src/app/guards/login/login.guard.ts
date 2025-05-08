@@ -13,7 +13,9 @@ export class LoginGuard implements CanActivate {
   async canActivate() {
     const  flag = await this._AuthService.loggedInDataUser();
 		if (!!flag) {
-      this._Router.navigate(['/map']);
+      const user = await this._AuthService.getDataUser();
+      const route = user.role === 'admin' ? '/admin-page' : '/map';
+      this._Router.navigate([route]);
       return false
     }
     return true;
