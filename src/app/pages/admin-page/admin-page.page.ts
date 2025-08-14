@@ -42,7 +42,6 @@ export class AdminPagePage implements OnInit {
   }
 
   async close() {
-    console.log('close')
     const alert = await this._AlertController.create({
       header: 'Cerrar sesion',
       message: 'Desea salir ?',
@@ -58,7 +57,6 @@ export class AdminPagePage implements OnInit {
         text: 'Ok',
         role: 'confirm',
         handler: () => {
-          console.log('Alert confirmed');
           this._AuthService.signout();
           this._Router.navigate(['/login']);
         },
@@ -69,7 +67,6 @@ export class AdminPagePage implements OnInit {
   }
 
   async qtyAlert(ev: any) {
-    console.log('close');
     const alert = await this._AlertController.create({
       header: 'Cantidad de items',
       message: 'Ingrese un número para confirmar:',
@@ -98,7 +95,6 @@ export class AdminPagePage implements OnInit {
           text: 'Ok',
           role: 'confirm',
           handler: (data) => {
-            console.log('Número ingresado:', data.cantidad);
             if (data.cantidad === '') {
               this.presentToast('El campo no puede estar vacio', 'warning');
               return;
@@ -122,7 +118,6 @@ export class AdminPagePage implements OnInit {
   }
 
   async newUserAlert(ev: any) {
-    console.log('close');
     const alert = await this._AlertController.create({
       header: 'Usuario sin cuenta',
       message: 'agrega los datos del usuario',
@@ -177,7 +172,7 @@ export class AdminPagePage implements OnInit {
           text: 'Ok',
           role: 'confirm',
           handler: (data) => {
-            console.log('Número ingresado:', data.cantidad);
+
             if (data.cantidad === '') {
               this.presentToast('El campo no puede estar vacio', 'warning');
               return;
@@ -256,7 +251,7 @@ export class AdminPagePage implements OnInit {
     // loginGetDataFire
     return new Promise((resolve) => {
       this._AuthService.loginGetDataFire(uid).then((response) => {
-        console.log(response)
+
         resolve(response)
       })
     })
@@ -275,19 +270,14 @@ export class AdminPagePage implements OnInit {
 
     try {
       const user =  customUser
-      console.log('await')
-      console.log(user);
       if (ev.actualAmount > ev.totalAmount) {
         this.presentToast('No hay mas existencias', 'warning');
         loading.dismiss();
         return;
       }
       // ev.uid
-      console.log('veo')
-      console.log(ev);
+
       let cont = ev.actualAmount - qty;
-      console.log(ev.totalAmount)
-      console.log(cont)
       const update1 =  await this.updateSupplies(ev.uid, cont);
       if (!update1) {
         this.presentToast('Ocurrio un error', 'danger');
@@ -314,17 +304,12 @@ export class AdminPagePage implements OnInit {
   }
 
   async scanQr(ev: any, qty: number, description: string, flag: number, customUser: any) {
-    console.log(ev)
-    console.log('cerro');
     const allowed =  await this.checkPermission();
     if (allowed) {  
       this.scanActive = true;
       let camera =  CameraDirection.BACK;
       const result: any = await BarcodeScanner.startScan({cameraDirection: camera}); 
       if (result.hasContent) {
-        console.log('ali')
-        console.log(result)
-        console.log(result.hasContent)
         const loading = await this._LoadingController.create({
           message: 'Validando',
           spinner: 'dots',
@@ -333,10 +318,9 @@ export class AdminPagePage implements OnInit {
 
         try {
             const user =  await this.getUser(result.content);
-            console.log('await')
-            console.log(user);
+  
             if (!user) {
-              console.log('no entra');
+        
               this.presentToast('El usuario no existe', 'warning');
               loading.dismiss();
               return
@@ -348,11 +332,8 @@ export class AdminPagePage implements OnInit {
             return;
           }
           // ev.uid
-          console.log('veo')
-          console.log(ev);
+ 
           let cont = ev.actualAmount - qty;
-          console.log(ev.totalAmount)
-          console.log(cont)
           const update1 =  await this.updateSupplies(ev.uid, cont);
           if (!update1) {
             this.presentToast('Ocurrio un error', 'danger');

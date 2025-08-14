@@ -20,7 +20,6 @@ export class AdminRegisterListPage implements OnInit {
     private _ToastController: ToastController
   ) {
     this.data = this._NavParams.get('value');
-    console.log(this.dataItem)
    }
 
   ngOnInit() {
@@ -42,7 +41,6 @@ export class AdminRegisterListPage implements OnInit {
     startDate.setHours(0, 0, 0, 0); 
     endDate.setHours(23, 59, 59, 999);
     const data =  await this.getData(startDate, endDate); 
-    console.log(data)
     if (!data) {
       this.dataItem = [];
       loading.dismiss();
@@ -50,17 +48,12 @@ export class AdminRegisterListPage implements OnInit {
       return
     }
 
-    console.log('llego')
     this.dataItem = data;
     loading.dismiss();
 
   }
 
   validDate(ev: any) {
-    console.log('ali')
-    console.log(this.date)
-    console.log(ev)
-    console.log(ev.detail.value)
     this.date =  ev.detail.value;
     this.search();
   }

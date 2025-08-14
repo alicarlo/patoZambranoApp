@@ -167,9 +167,6 @@ export class EventsService {
 
   async getSuppliesRegisters(uid: string, startTimestamp: any ,endTimestamp: any) {
     return new Promise((resolve) => {
-      console.log(uid)
-      console.log(startTimestamp)
-      console.log(endTimestamp)
 			this.afs.collection('supplies').doc(uid).collection('supplieList').ref.where("dateTimeStamp",">=",  startTimestamp).where("dateTimeStamp","<=", endTimestamp).get().then((doc) => {
 				if(doc.empty){
 					resolve(false);

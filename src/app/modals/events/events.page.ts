@@ -130,8 +130,6 @@ export class EventsPage implements OnInit {
           extras: {navigate: 'yes' },
         };
         
-        console.log(events)
-        console.log(events.lat, events.lng)
         this.launchNavigator.navigate([parseFloat(events.lat), parseFloat(events.lng)], options).then(
           // success => // console.log('Launched navigator'),
           // error => // console.log('Error launching navigator', error)
@@ -145,7 +143,7 @@ export class EventsPage implements OnInit {
           return;
         }
         await Share.share({
-          title: 'Pato Zambrano - Reporte Directo',
+          title: 'FOSFO - Reporte Directo',
           text: 'Presiona para ver la ubicación del evento',
           url: `https://www.google.com/maps?q=${events.lat},${events.lng}`,
         });
@@ -164,10 +162,8 @@ export class EventsPage implements OnInit {
       }
 
       async scanQr2(ev: any) {
-        console.log(ev)
         try {
           const idSub = await this.eventValidate(ev);
-          console.log(idSub)
           await this.eventValidateGlobal(ev, idSub)
         } catch (error) {
           console.error(error)
@@ -201,9 +197,6 @@ export class EventsPage implements OnInit {
           let camera =  CameraDirection.BACK;
           const result: any = await BarcodeScanner.startScan({cameraDirection: camera}); 
           if (result.hasContent) {
-            console.log('ali')
-            console.log(result)
-            console.log(result.hasContent)
             if (ev.uid === result.content) {
               const loading = await this._LoadingController.create({
                 message: 'Validando',
@@ -230,7 +223,6 @@ export class EventsPage implements OnInit {
             }
             /*
             const idSub = await this.eventValidate(ev);
-            console.log(idSub)
             await this.eventValidateGlobal(ev, idSub)
             */
           }
