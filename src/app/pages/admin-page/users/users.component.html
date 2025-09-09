@@ -1,0 +1,31 @@
+
+<div class="flex flex-col gap-4 h-full">
+
+  <div class="flex items-center gap-[5px]">
+    <ion-searchbar (ionInput)="search($event)" placeholder="Busqueda de usuarios"></ion-searchbar>
+    <ion-button 
+    size="small"
+      class="h-[36px] max-h-[36px]" 
+      color="dark2" 
+      (click)="openRegisterModal()"
+    >
+      <ion-icon size="large" name="add" color="light"></ion-icon>
+    </ion-button> 
+  </div>
+   
+
+    <div *ngIf="dataList.length === 0" class="w-full h-full flex items-center justify-center">
+        <p class="font-semibold">Sin usuarios</p>
+      </div>
+      <div *ngFor="let data of dataList" >
+      <div class="w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transitiont mt-4">
+        <div class="font-medium">
+          <p class="">Nombre: {{ data.name }} {{ data.secondLastName}}</p>
+          <p>Correo:  {{ data.email }}</p>
+          <p>Telefono: {{ data.phoneNumber }}</p>
+        </div>
+  
+      </div>
+    </div>  
+</div>
+<br>

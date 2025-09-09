@@ -21,7 +21,7 @@
     <p class="font-semibold">No cuentas con Mensajes</p>
   </div>
 
-  <div *ngIf="loading === 2">
+  <div *ngIf="loading === 2" class="flex flex-col gap-[10px]">
     <div *ngFor="let item of messages; let i = index">
       <div class="h-full w-full bg-white rounded-[32px] p-[15px]  shadow-lg hover:shadow-2xl transition">
         <br>

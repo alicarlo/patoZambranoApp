@@ -55,6 +55,7 @@ export class LoginPage implements OnInit {
 
   async openRegisterModal() {
     const modal = await this._ModalController.create({
+      componentProps: { value: 1 },
       component: RegisterPage,
       handle: true,
       showBackdrop: true,

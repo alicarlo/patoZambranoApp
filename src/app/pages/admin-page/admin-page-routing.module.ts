@@ -4,10 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminPagePage } from './admin-page.page';
 
 const routes: Routes = [
+  
   {
     path: '',
     component: AdminPagePage
-  }
+  },
 ];
 
 @NgModule({

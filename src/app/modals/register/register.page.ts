@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { LoadingController, ModalController, NavParams, ToastController } from '@ionic/angular';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../../services/auth/auth.service';
 import { UserForm } from 'src/app/modals/interfaces/interfaces';
@@ -13,6 +13,7 @@ import { VerifyModalPage } from '../verify-modal/verify-modal.page';
   standalone: false
 })
 export class RegisterPage implements OnInit {
+  flag: number = 1;
   dateFormat: string = '';
   signupForm: FormGroup | any;
   gender: any = [
@@ -80,9 +81,17 @@ export class RegisterPage implements OnInit {
     private _LoadingController: LoadingController,
     private _ToastController: ToastController,
     private fb: FormBuilder,
-    private _AuthService: AuthService
+    private _AuthService: AuthService,
+    private _NavParams: NavParams
   ) {
-    this.createForm();
+    this.flag = this._NavParams.get('value');
+    console.log(this.flag);
+
+    if (this.flag === 1) {
+      this.createForm();
+    }else{
+      this.createFormAdmin();
+    }
   }
 
   ngOnInit() {
@@ -111,6 +120,24 @@ export class RegisterPage implements OnInit {
     });
   }
 
+  createFormAdmin() {
+    this.signupForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      secondLastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      address: [''],
+      colony: [''],
+      state: [''],
+      town: [''],
+      postalCode: [''],
+      email: [''],
+      dob: [''],
+      gender: [''],
+      age: [''],
+    });
+  }
+
   async registerUser() {
     const loading = await this._LoadingController.create({
       message: 'Registrando...',
@@ -118,17 +145,24 @@ export class RegisterPage implements OnInit {
     });
     loading.present();
     try {
-      const responseAuth: any = await this._AuthService.signup(
-        this.signupForm.value.email,
-        this.signupForm.value.password,
-      );
+      let  responseAuth: any;
+      if (this.flag === 1) {
+        responseAuth = await this._AuthService.signup(
+          this.signupForm.value.email,
+          this.signupForm.value.password,
+        );
+      }
 
       const auth = {
-        uid: responseAuth.user.uid,
-        email: responseAuth.user.email,
-        emailVerified: responseAuth.user.emailVerified,
+        uid: this.flag === 1 ? responseAuth.user.uid : '',
+        email: this.flag === 1 ? responseAuth.user.email : '',
+        emailVerified: this.flag === 1 ? responseAuth.user.emailVerified : '',
       };
-      await this._AuthService.sendVerificationMail();
+
+      if (this.flag === 1) {
+        await this._AuthService.sendVerificationMail();
+      }
+      
 
       let keyConst = {
         user_keywords: [
@@ -140,11 +174,31 @@ export class RegisterPage implements OnInit {
           ...this.generateKeywords(this.signupForm.value.name + ' ' + this.signupForm.value.lastName + ' ' + this.signupForm.value.secondLastName),
         ],
       };
-      const user = await this._AuthService.createUser(this.signupForm.value, responseAuth.user.uid, auth, keyConst);
+
+      let type = 'platform';
+      let userCreate = {};
+      if (this.flag === 2) {
+        let user = await this._AuthService.getDataUser();
+        type = 'platformInternal';
+        userCreate = user;
+      }
+
+      let uid = this.flag === 1 ? responseAuth.user.uid : '';
+      const user = await this._AuthService.createUser(
+        this.signupForm.value, 
+        uid,
+        auth, 
+        keyConst, 
+        type, 
+        userCreate,
+        this.flag
+      );
       loading.dismiss();
       this.presentToast('Registro exitoso', 'success');
-      this._ModalController.dismiss();
-      this.verifyModalOpen();
+      this._ModalController.dismiss(5);
+      if (this.flag === 1) {
+        this.verifyModalOpen();
+      }
     } catch (e: unknown) {
       console.log(e)
       loading.dismiss();

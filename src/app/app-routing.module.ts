@@ -48,6 +48,10 @@ const routes: Routes = [
     path: 'admin-register-list',
     loadChildren: () => import('./modals/admin-register-list/admin-register-list.module').then( m => m.AdminRegisterListPageModule)
   },
+  {
+    path: 'add-user-insumo',
+    loadChildren: () => import('./modals/add-user-insumo/add-user-insumo.module').then( m => m.AddUserInsumoPageModule)
+  },
 ];
 
 @NgModule({

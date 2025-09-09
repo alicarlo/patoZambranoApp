@@ -34,6 +34,8 @@ import { ForgotPasswordPageModule } from './modals/forgot-password/forgot-passwo
 import { QrUserPageModule } from './modals/qr-user/qr-user.module';
 import { MessageDobPageModule } from './modals/message-dob/message-dob.module';
 import { AdminRegisterListPageModule } from './modals/admin-register-list/admin-register-list.module';
+import { InsumosComponent } from './pages/admin-page/insumos/insumos.component';
+
 
 @NgModule({
   declarations: [AppComponent],

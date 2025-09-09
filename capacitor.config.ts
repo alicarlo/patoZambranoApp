@@ -3,7 +3,7 @@ import { KeyboardResize, KeyboardStyle } from '@capacitor/keyboard';
 
 const config: CapacitorConfig = {
   appId: 'io.trayectosIntelugentes.patoZambranoApp',
-  appName: 'patoZambranoApp',
+  appName: 'Voz Ciudadana',
   webDir: 'www',
   plugins: {
     Keyboard: {
