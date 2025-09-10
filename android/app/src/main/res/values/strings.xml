@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Pato App</string>
-    <string name="title_activity_main">Pato App</string>
+    <string name="app_name">Voz Ciudadana</string>
+    <string name="title_activity_main">Voz Ciudadana</string>
     <string name="package_name">io.trayectosIntelugentes.patoZambranoApp</string>
     <string name="custom_url_scheme">io.trayectosIntelugentes.patoZambranoApp</string>
 </resources>

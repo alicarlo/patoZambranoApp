@@ -110,7 +110,6 @@ export class MapPage implements OnInit {
           this.getToken();
       }
 
-      console.log(this.user)
       if (this.user.dob === '') {
         this.openDob();
       }
@@ -246,7 +245,6 @@ export class MapPage implements OnInit {
       backdropDismiss: false,
     });
     modal.onDidDismiss().then((result: any) => {
-      console.log(result.data)
       if (result.data === 1) {
         this.openProfile();
       }
@@ -278,7 +276,6 @@ export class MapPage implements OnInit {
       componentProps: { value: data },
     });
     modal.onDidDismiss().then((result: any) => {
-      console.log(result.data)
       if (result.data === 1) {
         this.clearDelete();
       }

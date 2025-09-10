@@ -1,0 +1,51 @@
+<ion-header [translucent]="false" class="ion-no-border h-[100px]">
+  <ion-toolbar color="cream" class="!pt-[30px]">
+    <ion-title class="text-text-primary-custom">Usuarios</ion-title>
+    <ion-buttons slot="end" (click)="closeMenu()">
+      <ion-button class="p-2 rounded-full flex items-center justify-center">
+        <ion-icon size="large" name="close" class="text-black"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding" >
+  <br>
+  <ion-header collapse="condense" >
+    <ion-toolbar>
+      <ion-title size="large">Usuarios</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+<div class="flex flex-col gap-4 h-full">
+
+  <div class="flex items-center gap-[5px]">
+    <ion-searchbar (ionInput)="search($event)" placeholder="Busqueda de usuarios"></ion-searchbar>
+  </div>
+   
+
+    <div *ngIf="dataList.length === 0" class="w-full h-full flex items-center justify-center">
+        <p class="font-semibold">Sin usuarios</p>
+      </div>
+      <div *ngFor="let data of dataList" >
+      <div class="w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transitiont mt-4">
+        <div class="font-medium">
+          <p class="">Nombre: {{ data.name }} {{ data.secondLastName}}</p>
+          <p>Correo:  {{ data.email }}</p>
+          <p>Telefono: {{ data.phoneNumber }}</p>
+        </div>
+        
+         <div class="flex w-full justify-end">
+
+          <div>
+            <ion-chip  class="" (click)="add(data)" >
+              Seleccionar usuario
+            </ion-chip>   
+          </div>
+           
+        </div>
+      </div>
+    </div>  
+</div>
+<br>
+</ion-content>

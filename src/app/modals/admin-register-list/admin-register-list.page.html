@@ -1,0 +1,53 @@
+<ion-header [translucent]="false" class="ion-no-border h-[100px]">
+  <ion-toolbar color="cream" class="!pt-[30px]">
+    <ion-title class="text-text-primary-custom">Listado</ion-title>
+    <ion-buttons slot="end" (click)="closeMenu()">
+      <ion-button class="p-2 rounded-full flex items-center justify-center">
+        <ion-icon size="large" name="close" class="text-black"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+  <div class="flex justify-between items-end">
+    <p class="font-semibold">Selecciona una Fecha:</p>
+    <ion-datetime-button datetime="datetime"></ion-datetime-button>
+  </div>
+  
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime
+        id="datetime"
+        [value]="date"
+        (ionChange)="validDate($event)"
+        presentation="date"
+        size="cover"
+        displayFormat="DD-MMMM-YYYY"
+        [preferWheel]="false"
+        [showDefaultButtons]="true"
+        [doneText]="'Ok'"
+        [cancelText]="'Cancelar'"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
+
+  <div *ngIf="dataItem.length">
+    <div *ngFor="let data of dataItem">
+      <div class="w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transitiont mt-4">
+        <div class="font-medium">
+          <p class="">Nombre: {{ data.name }}</p>
+          <p class="">Apellidos: {{ data.lastName }} {{ data.secondLastName}}</p>
+          <p>Descripcion:  {{ data.description }}</p>
+          <p>Cantidad: {{ data.amount }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!dataItem.length" class="w-full h-full flex items-center justify-center">
+    <p>No hay registros</p>
+  </div>
+ 
+</ion-content>

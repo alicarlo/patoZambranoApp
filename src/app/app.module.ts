@@ -35,6 +35,9 @@ import { DeleAccountPageModule } from './modals/dele-account/dele-account.module
 import { SettingsPageModule } from './modals/settings/settings.module';
 import { QrUserPageModule } from './modals/qr-user/qr-user.module';
 import { MessageDobPageModule } from './modals/message-dob/message-dob.module';
+import { AdminRegisterListPageModule } from './modals/admin-register-list/admin-register-list.module';
+import { InsumosComponent } from './pages/admin-page/insumos/insumos.component';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -64,7 +67,8 @@ import { MessageDobPageModule } from './modals/message-dob/message-dob.module';
     SettingsPageModule,
     QrUserPageModule,
     MessageDobPageModule,
-    QrCodeComponent
+    QrCodeComponent,
+    AdminRegisterListPageModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, LaunchNavigator],

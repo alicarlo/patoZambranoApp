@@ -76,8 +76,30 @@ ion-item {
 .bottom-end {
   &::part(content) {
     width: 100%;
-    height: 250px;
+    height: 350px;
     position: absolute;
     bottom: 0;
   }
 }
+
+ion-tab-bar {
+ height: 80px;
+}
+
+
+
+:root {
+  --sb-top: 0px; /* default: Android 14− sin huecos */
+}
+
+
+/* No engordes el toolbar */
+body.android-15-16 ion-toolbar {
+  padding-top: 0 !important;
+}
+
+/* 🔽 Mueve SOLO el header con el inset real (8–24px) */
+body.android-15-16 ion-header {
+  margin-top: var(--sb-top);
+}
+

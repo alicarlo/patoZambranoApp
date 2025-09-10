@@ -12,7 +12,7 @@
 <ion-content [fullscreen]="true" class="ion-padding bg-cream text-text-primary-custom">
   <h1 class="font-semibold text-3xl mb-6">Crea una cuenta</h1>
 
-  <form  [formGroup]="signupForm">
+  <form  [formGroup]="signupForm" *ngIf="flag === 1">
     <!-- Nombre -->
     <div class="mb-4">
       <label for="nombre" class="block text-dark2 font-semibold mb-2">Nombre</label>
@@ -199,7 +199,7 @@
             presentation="date"
             size="cover"
             displayFormat="DD-MMMM-YYYY"
-            [preferWheel]="true"
+            [preferWheel]="false"
             [showDefaultButtons]="true"
             color=""
             [doneText]="'Continuar'"
@@ -293,6 +293,214 @@
       </ng-container>
     </div>
   </form>
+
+  <form  [formGroup]="signupForm" *ngIf="flag === 2">
+    <!-- Nombre -->
+    <div class="mb-4">
+      <label for="nombre" class="block text-dark2 font-semibold mb-2">Nombre</label>
+      <input
+        id="nombre"
+        formControlName="name"
+        type="text"
+        placeholder="Ingrese su Nombre"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.name">
+        <div class="error-message" *ngIf="signupForm.get('name')?.hasError(error.type) && (signupForm.get('name')?.dirty || signupForm.get('name')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Apellido Paterno -->
+    <div class="mb-4">
+      <label for="apellido_paterno" class="block text-dark2 font-semibold mb-2">Apellido Paterno</label>
+      <input
+        formControlName="lastName"
+        id="apellido_paterno"
+        type="text"
+        placeholder="Ingrese su Apellido Paterno"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.lastName">
+        <div class="error-message" *ngIf="signupForm.get('lastName')?.hasError(error.type) && (signupForm.get('lastName')?.dirty || signupForm.get('lastName')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Apellido Materno -->
+    <div class="mb-4">
+      <label for="apellido_materno" class="block text-dark2 font-semibold mb-2">Apellido Materno</label>
+      <input
+        formControlName="secondLastName"
+        id="apellido_materno"
+        type="text"
+        placeholder="Ingrese su Apellido Materno"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.secondLastName">
+        <div class="error-message" *ngIf="signupForm.get('secondLastName')?.hasError(error.type) && (signupForm.get('secondLastName')?.dirty || signupForm.get('secondLastName')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Número de Teléfono -->
+    <div class="mb-4">
+      <label for="telefono" class="block text-dark2 font-semibold mb-2">Número de Teléfono</label>
+      <input
+        formControlName="phoneNumber"
+        id="telefono"
+        type="tel"
+        placeholder="Ingrese su Número de Teléfono"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.phoneNumber">
+        <div class="error-message" *ngIf="signupForm.get('phoneNumber')?.hasError(error.type) && (signupForm.get('phoneNumber')?.dirty || signupForm.get('phoneNumber')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Dirección -->
+    <div class="mb-4">
+      <label for="direccion" class="block text-dark2 font-semibold mb-2">Dirección (Opcional)</label>
+      <input
+        formControlName="address"
+        id="direccion"
+        type="text"
+        placeholder="Ingrese su Dirección"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="state" class="block text-dark2 font-semibold mb-2">Estado (Opcional)</label>
+      <input
+        formControlName="state"
+        id="state"
+        type="text"
+        placeholder="Ingrese su Estado"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+
+    <div class="mb-4">
+      <label for="town" class="block text-dark2 font-semibold mb-2">Municipio (Opcional)</label>
+      <input
+        formControlName="town"
+        id="town"
+        type="text"
+        placeholder="Ingrese su municipio"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+
+    <!-- Colonia -->
+    <div class="mb-4">
+      <label for="colonia" class="block text-dark2 font-semibold mb-2">Colonia (Opcional)</label>
+      <input
+        formControlName="colony"
+        id="colonia"
+        type="text"
+        placeholder="Ingrese su Colonia"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+
+    <!-- Código Postal -->
+    <div class="mb-4">
+      <label for="postalCode" class="block text-dark2 font-semibold mb-2">Código Postal (Opcional)</label>
+      <input
+        formControlName="postalCode"
+        id="postalCode"
+        type="text"
+        placeholder="Ingrese su Código Postal"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+
+    <div class="mb-4">
+      <ion-item class="h-14 rounded border border-gray-400 flex items-center" id="open-modal" lines="none">
+        <ion-label class="color-label">
+          Fecha de cumpleaños (Opcional)
+          <span *ngIf="dateFormat !== ''">
+            : {{ dateFormat }}
+          </span>
+        </ion-label>
+      </ion-item>
+      <ion-modal trigger="open-modal" [cssClass]="'bottom-end'">
+        <ng-template>
+          <ion-datetime
+            (ionChange)="validDate()"
+            formControlName="dob"
+            presentation="date"
+            size="cover"
+            displayFormat="DD-MMMM-YYYY"
+            [preferWheel]="false"
+            [showDefaultButtons]="true"
+            color=""
+            [doneText]="'Continuar'"
+            [cancelText]="'Cancelar'"
+          ></ion-datetime>
+        </ng-template>
+      </ion-modal>
+      <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.dob">
+          <div class="error-message" *ngIf="signupForm.get('dob')?.hasError(error.type) && (signupForm.get('dob')?.dirty || signupForm.get('dob')?.touched)">
+            {{error.message}}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div>
+      <ion-select
+        label="Genero (Opcional)"
+        label-placement="floating"
+        fill="outline"
+        mode="md"
+        formControlName="gender"
+      >
+        <ion-select-option [value]="data.name" *ngFor="let data of gender">
+          {{ data?.name | uppercase }}
+        </ion-select-option>
+      </ion-select>
+    </div>
+    <br>
+    <div class="mb-4">
+      <label for="age" class="block text-dark2 font-semibold mb-2">Edad (Opcional)</label>
+      <input
+        formControlName="age"
+        id="age"
+        type="number"
+        placeholder="Ingrese su Edad"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+
+    <!-- Correo Electrónico -->
+    <div class="mb-4">
+      <label for="email" class="block text-dark2 font-semibold mb-2">Correo Electrónico (Opcional)</label>
+      <input
+        formControlName="email"
+        id="email"
+        type="email"
+        placeholder="Ingrese su Correo Electrónico"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+  </form>
+  
   
 </ion-content>
 

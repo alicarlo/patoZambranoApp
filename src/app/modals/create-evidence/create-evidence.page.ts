@@ -64,7 +64,6 @@ export class CreateEvidencePage implements OnInit {
   async ngOnInit() {
     this.user = await this._AuthService.getDataUser();
     this.evidenceType = await this._EvidenceService.getEvidenceType(this.user.customerId);
-    console.log(this.evidenceType)
   }
 
   closeMenu() {
@@ -164,7 +163,6 @@ export class CreateEvidencePage implements OnInit {
   }
 
   async send() {
-    console.log(this.evidenceTypeSelect)
     if (this.title === '') {
       this.presentToast('Debes ingresar un titulo', 'warning');
       return;

@@ -1,0 +1,57 @@
+
+<ion-header [translucent]="true" color="cream" class="ion-no-border h-[100px]" *ngIf="!scanActive">
+  <ion-toolbar color="cream" class="!pt-[30px] h-[100px]" [style.background]="scanActive ? '#00000000' : '#ffffff'">
+    <ion-title mode="md" class="text-dark2 font-semibold text-[20px]">Administrador</ion-title>
+    <ion-buttons slot="end" (click)="close()">
+      <ion-button class="p-2 rounded-full flex items-center bg-danger justify-center h-[54px] w-[54px]">
+        <ion-icon size="large" name="close" class="text-white"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+<ion-toolbar>
+  
+  <ion-segment value="default" class="w-full" (ionChange)="onSegmentChange($event)">
+    <ion-segment-button value="default" >
+      <ion-label>Usuarios</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="segment">
+      <ion-label>Insumos</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
+  <br>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding" [style.--background]="scanActive ? '#00000000' : '#ffffff'">
+  <br>
+  <ion-header collapse="condense" *ngIf="!scanActive">
+    <ion-toolbar>
+      <ion-title size="large">Administrador</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="my-[10px]">
+    <app-insumos *ngIf="show === 1"  (qrActivate)=qrActivate($event)></app-insumos>
+    <app-users *ngIf="show === 2"></app-users>
+  </div>
+  
+  <br>
+</ion-content>
+
+
+<!--
+<ion-tab-bar slot="bottom" *ngIf="!scanActive">
+
+
+  <ion-tab-button 
+    (click)="usersModals()" 
+  >
+    <ion-icon name="document-text"></ion-icon>
+    <ion-label>Registros</ion-label>
+  </ion-tab-button>
+
+</ion-tab-bar>
+-->
+

@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { VerifyModalPage } from 'src/app/modals/verify-modal/verify-modal.page';
 import { ForgotPasswordPage } from '../../modals/forgot-password/forgot-password.page';
+import { Keyboard, KeyboardResize } from '@capacitor/keyboard';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +45,9 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    Keyboard.setResizeMode({ mode: KeyboardResize.Body });
   }
+
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
@@ -52,6 +55,7 @@ export class LoginPage implements OnInit {
 
   async openRegisterModal() {
     const modal = await this._ModalController.create({
+      componentProps: { value: 1 },
       component: RegisterPage,
       handle: true,
       showBackdrop: true,
@@ -98,7 +102,8 @@ export class LoginPage implements OnInit {
       if(!disabled) {
         this._AuthService.setDataUser(login);
         this.loginForm.reset();
-        this._Router.navigate(['/map', { onSameUrlNavigation: 'reload' }])
+        const route  = login.role === 'admin' ? '/admin-page' : '/map';
+        this._Router.navigate([route, { onSameUrlNavigation: 'reload' }])
       }else{
         this.presentToast('Esta aplicación es exclusiva para usuarios activos.','danger')
       }

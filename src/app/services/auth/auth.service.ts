@@ -5,6 +5,7 @@ import { getAuth, sendEmailVerification, UserCredential, UserInfo } from 'fireba
 import * as moment from 'moment';
 import { UserForm } from 'src/app/modals/interfaces/interfaces';
 import { Storage } from '@capacitor/storage';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -127,11 +128,12 @@ export class AuthService {
     return this.auth.sendPasswordResetEmail(email);
   }
 
-  async createUser(user: UserForm , uid: string, auth: any,  keyConst: any) {
+  async createUser(user: UserForm , uid: string, auth: any,  keyConst: any, type: string, userCreate: any, flag: number) {
     let fire1 = this.afs;
     let fire2 = this.afs;
-
+    console.log(user)
     return new Promise((resolve, reject) => {
+      if (flag === 1) {
       fire1
         .collection('users').doc(uid)
         .set({
@@ -149,7 +151,8 @@ export class AuthService {
           photoUrl: '',
           status: '',
           role: 'user',
-          type: 'platform',
+          type: type,
+          userCreate: userCreate,
           dob: user.dob,
           gender: user.gender,
           age: user.age,
@@ -169,6 +172,54 @@ export class AuthService {
         .catch(function (error) {
           reject(error);
         });
+      }else{
+        fire1
+        .collection('users')
+        .add({
+          idDoc: '',
+          uid: '',
+          name: user.name,
+          lastName: user.lastName,
+          secondLastName: user.secondLastName,
+          user_keywords: keyConst.user_keywords,
+          email: '',
+          emailVerified: '',
+          date: moment().format(),
+          dateFormat: moment().format('DDDD-MM-YY'),
+          dateTimeStamp: new Date(moment().format()),
+          photoUrl: '',
+          status: '',
+          role: 'user',
+          type: type,
+          userCreate: userCreate,
+          dob: user.dob,
+          gender: user.gender,
+          age: user.age,
+          phoneNumber: user.phoneNumber,
+          address: user.address,
+          colony: user.colony,
+          state: user.state,
+          town: user.town,
+          postalCode: user.postalCode,
+          token: '',
+          customerId: "bnhTylS19PZVCQwtN3z8",
+          customerName: "Pato Zambrano"
+        })
+        .then(function (dataAux) {
+          fire2.collection('users').doc(dataAux.id).update({
+            idDoc: dataAux.id
+          }).then(function(data) {
+            resolve(true);
+          }).catch(function(error) {
+            console.log(error)
+            resolve(false)
+          });
+        })
+        .catch(function (error) {
+          reject(error);
+        });
+
+      }
     });
   }
 
@@ -249,4 +300,41 @@ export class AuthService {
         });
     });
   }
+
+    async getAllUsers() {
+    return new Promise((resolve) => {
+      this.afs
+        .collection('users')
+        .ref.where('type', '!=', 'admin')
+        .get()
+        .then(function (doc) {
+          if (!doc.empty) {
+            let dataSend: any = [];
+            doc.forEach((element) => {
+              dataSend.push(element.data() as any);
+            });
+            resolve(dataSend);
+          } else {
+            resolve([]);
+          }
+        })
+        .catch(function (error) {
+          resolve(false);
+          console.error('Error getting document:', error);
+        });
+    });
+  }
+
+  searchUsersByNameOrLastName(searchTerm: string): Observable<any[]> {
+    const lowercaseSearchTerm = searchTerm.toLowerCase();
+
+    return this.afs
+      .collection('users', (ref) =>
+        ref
+          .where('type', '!=', 'admin')
+          .where('user_keywords', 'array-contains', lowercaseSearchTerm),
+      )
+      .valueChanges({ idField: 'id' });
+  }
+
 }
