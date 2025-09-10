@@ -23,7 +23,7 @@
   </div>
   <br />
   <ion-item>
-    <ion-label class="text-center" position="stacked">Correo Electrónico</ion-label>
+    <ion-label class="text-center text-white" position="stacked">Correo Electrónico</ion-label>
     <ion-input type="email" [(ngModel)]="email" (ionBlur)="validateEmail()" required></ion-input>
   </ion-item>
   <ion-text color="danger" *ngIf="!isValidEmail && email">Error en el formato de correo</ion-text>

@@ -2,74 +2,65 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key></key>
-	<string></string>
-	<key>CFBundleSignature</key>
-	<string></string>
-	<key>NSHumanReadableCopyright</key>
-	<string></string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Se solicita el acceso a su libreria para el modulo de evidencias, donde podra adjuntar una imagen</string>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleDisplayName</key>
-	<string>PatoApp</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleGetInfoString</key>
-	<string></string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
-	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>Se solicita el acceso a su camera para el modulo de evidencias, donde podra adjuntar una imagen</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Se solicita el acceso a su ubicacion para mostrate tus evidencias mas cercanas</string>
-	<key>NSLocationUsageDescription</key>
-	<string>Se solicita el acceso a su ubicacion para mostrate tus evidencias mas cercanas</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Se solicita el acceso a su ubicacion para mostrate tus evidencias mas cercanas</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Se solicita el acceso a su microfono para el modulo de evidencias, donde podra adjuntar un audio</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Se solicita el acceso a su libreria para el modulo de evidencias, donde podra adjuntar una imagen</string>
-	<key>NSUserNotificationsUsageDescription</key>
-	<string>Se solicita el acceso a  notificaciones para enviarlo  sus invitaciones a eventos</string>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
+  <key>CFBundleDevelopmentRegion</key>
+  <string>en</string>
+  <key>CFBundleDisplayName</key>
+  <string>PatoApp</string>
+  <key>CFBundleExecutable</key>
+  <string>$(EXECUTABLE_NAME)</string>
+  <key>CFBundleIdentifier</key>
+  <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  <key>CFBundleInfoDictionaryVersion</key>
+  <string>6.0</string>
+  <key>CFBundleName</key>
+  <string>$(PRODUCT_NAME)</string>
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+  <key>CFBundleShortVersionString</key>
+  <string>$(MARKETING_VERSION)</string>
+  <key>CFBundleVersion</key>
+  <string>$(CURRENT_PROJECT_VERSION)</string>
+  <key>LSRequiresIPhoneOS</key>
+  <true/>
+  <key>UILaunchStoryboardName</key>
+  <string>LaunchScreen</string>
+  <key>UIMainStoryboardFile</key>
+  <string>Main</string>
+  <key>UIRequiredDeviceCapabilities</key>
+  <array>
+    <string>armv7</string>
+  </array>
+  <key>UISupportedInterfaceOrientations</key>
+  <array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+  </array>
+  <key>UISupportedInterfaceOrientations~ipad</key>
+  <array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+  </array>
+  <key>UIViewControllerBasedStatusBarAppearance</key>
+  <true/>
+  <key>NSCameraUsageDescription</key>
+  <string>Se solicita el acceso a su cámara para el módulo de evidencias, donde podrá adjuntar una imagen</string>
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  <string>Se solicita el acceso a su ubicación para mostrarte tus evidencias más cercanas</string>
+  <key>NSLocationUsageDescription</key>
+  <string>Se solicita el acceso a su ubicación para mostrarte tus evidencias más cercanas</string>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>Se solicita el acceso a su ubicación para mostrarte tus evidencias más cercanas</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Se solicita el acceso a su micrófono para el módulo de evidencias, donde podrá adjuntar un audio</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>Se solicita el acceso a su librería para el módulo de evidencias, donde podrá adjuntar una imagen</string>
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>Se solicita el acceso a su librería para guardar imágenes desde el módulo de evidencias</string>
+  <key>NSUserNotificationsUsageDescription</key>
+  <string>Se solicita el acceso a notificaciones para enviarle sus invitaciones a eventos</string>
 </dict>
 </plist>
+
