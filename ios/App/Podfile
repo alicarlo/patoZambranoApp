@@ -15,6 +15,7 @@ def capacitor_pods
   pod 'CapacitorCommunityFcm', :path => '../../node_modules/@capacitor-community/fcm'
   pod 'CapacitorApp', :path => '../../node_modules/@capacitor/app'
   pod 'CapacitorCamera', :path => '../../node_modules/@capacitor/camera'
+  pod 'CapacitorDevice', :path => '../../node_modules/@capacitor/device'
   pod 'CapacitorGeolocation', :path => '../../node_modules/@capacitor/geolocation'
   pod 'CapacitorHaptics', :path => '../../node_modules/@capacitor/haptics'
   pod 'CapacitorKeyboard', :path => '../../node_modules/@capacitor/keyboard'
@@ -22,6 +23,7 @@ def capacitor_pods
   pod 'CapacitorShare', :path => '../../node_modules/@capacitor/share'
   pod 'CapacitorStatusBar', :path => '../../node_modules/@capacitor/status-bar'
   pod 'CapacitorStorage', :path => '../../node_modules/@capacitor/storage'
+  pod 'CapacitorPluginSafeArea', :path => '../../node_modules/capacitor-plugin-safe-area'
   pod 'CapacitorVoiceRecorder', :path => '../../node_modules/capacitor-voice-recorder'
   pod 'CordovaPlugins', :path => '../capacitor-cordova-ios-plugins'
 end
