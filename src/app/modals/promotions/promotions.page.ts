@@ -87,7 +87,7 @@ export class PromotionsPage implements OnInit {
       return;
     }
     await Share.share({
-      title: 'Voz Ciudadana - Reporte Directo',
+      title: 'Voz Viva - Reporte Directo',
       text: 'Presiona para ver la ubicación del evento',
       url: `https://www.google.com/maps?q=${events.lat},${events.lng}`,
     });
