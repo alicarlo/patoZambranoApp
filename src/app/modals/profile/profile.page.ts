@@ -38,9 +38,11 @@ export class ProfilePage implements OnInit {
     colony: [
       { type: 'required', message: 'Colonia requerida' }
     ],
+    /*
     state: [
       { type: 'required', message: 'Estado requerida' }
     ],
+    */
     town: [
       { type: 'required', message: 'Municipio requerida' }
     ],
@@ -50,6 +52,10 @@ export class ProfilePage implements OnInit {
     ],
     age: [
       { type: 'required', message: 'Edad requerido' },
+    ],
+    section: [
+      { type: 'required', message: 'Sección requerido' },
+       { type: 'pattern', message: 'Debe contener 5 dígitos maximo' }
     ]
   };
   constructor(
@@ -76,9 +82,10 @@ export class ProfilePage implements OnInit {
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]], // Solo 10 dígitos numéricos
       address: ['', [Validators.required]],
       colony: ['', [Validators.required]],
-      state: ['', [Validators.required]],
+      // state: ['', [Validators.required]],
       town: ['', [Validators.required]],
       postalCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]], // Solo 5 dígitos numéricos
+      section: ['', [Validators.required,Validators.maxLength(5)]],
       age: ['', Validators.compose([Validators.required])],
     });
   }
@@ -99,10 +106,11 @@ export class ProfilePage implements OnInit {
         phoneNumber: userData.phoneNumber,
         address: userData.address,
         colony: userData.colony,
-        state: userData.state === undefined ? '' : userData.state,
+        // state: userData.state === undefined ? '' : userData.state,
         town: userData.town === undefined ? '' : userData.town,
         postalCode: userData.postalCode,
-        age: userData.age
+        age: userData.age,
+        section: userData.section === undefined ? '' : userData.section
       });
       
       loading.dismiss();

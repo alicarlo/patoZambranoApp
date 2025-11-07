@@ -10,22 +10,85 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <div *ngIf="imageUrl !== ''" class="w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transition">
-  
-    <div class="w-full flex justify-between items-baseline">
-      <p class="font-semibold text-[30px]">Tu Fotografia</p>
-      
-      <ion-buttons slot="end" (click)="removeImage()">
-        <ion-button class="p-2 rounded-full flex items-center bg-[#f04141] justify-center h-[54px] w-[54px]">
-          <ion-icon size="large" name="trash" class="text-white"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      
+      <div *ngIf="boxAudio === true">
+    <p class="font-semibold text-[30px] text-white">Graba tu Audio</p>
+    <div class="w-full bg-[#f6f8fc] text-white rounded-lg shadow-lg p-4 flex items-center gap-4">
+      <div class="flex-1">
+        <p class="text-sm text-black">{{ isRecording ? 'Iniciado...' : 'Presiona iniciar para grabar' }}</p>
+        <p class="text-xs text-black">{{ formatTime(duration) }}</p>
+      </div>
+    
+      <div class="flex gap-1">
+        <button
+          (click)="toggleRecording()"
+          class="px-3 py-1 text-xs text-white font-semibold rounded-lg transition"
+          [ngClass]="{
+            'bg-red-600 hover:bg-red-700': !isRecording,
+            'bg-black': isRecording
+          }"
+        >
+          {{ isRecording ? 'Detener' : 'Iniciar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div  class="flex gap-[5px] w-full">
+    <div  class="w-[50%]">
+      <div class="h-full w-full bg-white rounded-[32px] p-4  shadow-lg hover:shadow-2xl transition" (click)="activateBoxAudio()">
+        <div class="h-full w-full flex flex-col items-center justify-center gap-2">
+          <ion-icon name="mic-circle" class="text-dark2 !text-[30px]"></ion-icon>
+          <p class="font-semibold text-dark2 text-center m-0">Audio</p>
+        </div>
+        
+      </div>
     </div>
 
-    <div>
-      <img [src]="imageUrl"  class="rounded-[32px] w-full"/>
+
+    <!--
+    <div  class="w-[50%]">
+      <div class="h-full w-full bg-white rounded-[32px] p-4  shadow-lg hover:shadow-2xl transition" (click)="pickImage()">
+        <div class="h-full w-full flex flex-col items-center justify-center gap-2">
+          <ion-icon name="camera"  class="text-dark2 !text-[30px]"></ion-icon>
+          <p class="font-semibold text-dark2 text-center m-0">Camara</p>
+        </div>
+        
+      </div>
     </div>
+    -->
+
+    <div  class="w-[50%]">
+      <div class="h-full w-full bg-white rounded-[32px] p-4  shadow-lg hover:shadow-2xl transition" (click)="presentActionSheet()">
+        <div class="h-full w-full flex flex-col items-center justify-center gap-2">
+          <ion-icon name="image"  class="text-dark2 !text-[30px]"></ion-icon>
+          <p class="font-semibold text-dark2 text-center m-0">Fotografia</p>
+        </div>
+        
+      </div>
+    </div>
+
+  </div>
+
+    <div *ngIf="imageUrlArray.length > 0" class="w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transition">
+    
+    <div   class="flex flex-col gap-2">
+      <div *ngFor="let imageUrl of imageUrlArray; let i = index" class="flex flex-col gap-2">
+        <div class="w-full flex justify-between items-baseline">
+        
+          <ion-buttons slot="end" (click)="removeImage(i)">
+            <ion-button class="p-2 rounded-full flex items-center bg-[#f04141] justify-center h-[54px] w-[54px]">
+              <ion-icon size="large" name="trash" class="text-white"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </div>
+
+        <div>
+          <img [src]="imageUrl"  class="rounded-[32px] w-full"/>
+        </div>
+      </div>
+      
+    </div>
+    
 
   </div>
   <br>
@@ -46,54 +109,6 @@
       <source [src]="audioUrl">
     </audio>
   
-  </div>
-  
-  <div *ngIf="boxAudio === true">
-    <p class="font-semibold text-[30px]">Graba tu Audio</p>
-    <div class="w-full bg-[#f6f8fc] text-black rounded-lg shadow-lg p-4 flex items-center gap-4">
-      <div class="flex-1">
-        <p class="text-sm">{{ isRecording ? 'Iniciado...' : 'Presiona iniciar para grabar' }}</p>
-        <p class="text-xs text-gray-400">{{ formatTime(duration) }}</p>
-      </div>
-    
-      <div class="flex gap-1">
-        <button
-          (click)="toggleRecording()"
-          class="px-3 py-1 text-xs text-white font-semibold rounded-lg transition"
-          [ngClass]="{
-            'bg-red-600 hover:bg-red-700': !isRecording,
-            'bg-black': isRecording
-          }"
-        >
-          {{ isRecording ? 'Detener' : 'Iniciar' }}
-        </button>
-      </div>
-    </div>
-  </div>
-  <br>
-
-
-  <div  class="flex gap-[5px] w-full">
-    <div  class="w-[50%]">
-      <div class="h-full w-full bg-white rounded-[32px] p-4  shadow-lg hover:shadow-2xl transition" (click)="activateBoxAudio()">
-        <div class="h-full w-full flex flex-col items-center justify-center gap-2">
-          <ion-icon name="mic-circle" class="text-dark2 !text-[30px]"></ion-icon>
-          <p class="font-semibold text-dark2 text-center m-0">Audio</p>
-        </div>
-        
-      </div>
-    </div>
-
-
-    <div  class="w-[50%]">
-      <div class="h-full w-full bg-white rounded-[32px] p-4  shadow-lg hover:shadow-2xl transition" (click)="pickImage()">
-        <div class="h-full w-full flex flex-col items-center justify-center gap-2">
-          <ion-icon name="camera"  class="text-dark2 !text-[30px]"></ion-icon>
-          <p class="font-semibold text-dark2 text-center m-0">Camara</p>
-        </div>
-        
-      </div>
-    </div>
   </div>
   <br>
   <div class="mb-4">

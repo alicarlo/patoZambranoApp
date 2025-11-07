@@ -11,6 +11,56 @@ export class EvidenceService {
     private afs: AngularFirestore,
   ) { }
 
+
+  async addImageEvidence(idDocEvidence: string, imageUrl: string) {
+    return new Promise((resolve, reject) => {
+      let fire1 = this.afs;
+      let fire2 = this.afs;
+      fire1.collection('evidence').doc(idDocEvidence).collection('images').add({
+          idDocEvidence,
+          imageUrl,
+          date: moment().format(),
+          dateFormat: moment().format('DDDD-MM-YY'),
+          dateTimeStamp: new Date(moment().format()),
+          idDoc: '',
+        }).then(function (dataAux) {
+          fire2.collection('evidence').doc(idDocEvidence).collection('images').doc(dataAux.id).update({
+            idDoc: dataAux.id
+          }).then(function(data) {
+            resolve(dataAux.id);
+          }).catch(function(error) {
+            console.log(error)
+            resolve(false)
+          });
+        })
+    });
+  }
+
+   async addImageEvidenceUser(idDocEvidence: string, idDocEvidenceUser: string, imageUrl: string, uid: string) {
+    return new Promise((resolve, reject) => {
+      let fire1 = this.afs;
+      let fire2 = this.afs;
+      fire1.collection('users').doc(uid).collection('evidence').doc(idDocEvidence).collection('images').add({
+          idDocEvidence,
+          idDocEvidenceUser,
+          imageUrl,
+          date: moment().format(),
+          dateFormat: moment().format('DDDD-MM-YY'),
+          dateTimeStamp: new Date(moment().format()),
+          idDoc: '',
+        }).then(function (dataAux) {
+          fire2.collection('users').doc(uid).collection('evidence').doc(idDocEvidence).collection('images').doc(dataAux.id).update({
+            idDoc: dataAux.id
+          }).then(function(data) {
+            resolve(dataAux.id);
+          }).catch(function(error) {
+            console.log(error)
+            resolve(false)
+          });
+        })
+    });
+  }
+
   async createEvidence(user: any, imageUrl: string, audioUrl: string, title: string, description: string, state: string, town: string,colony: string,  lat: any, lng: any, latEvidence: any, lngEvidence: any, evidenceType: any) {
       let fire1 = this.afs;
       let fire2 = this.afs;
@@ -33,7 +83,7 @@ export class EvidenceService {
             imageUrl,
             title,
             description,
-            state,
+            // state,
             town,
             colony,
             latUser: lat,
@@ -124,6 +174,29 @@ export class EvidenceService {
             doc.forEach(element => {
               filterData.push(element.data());
             });
+            resolve(filterData)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      })
+    }
+
+    async getImages(uid: string, idDoc: string) {
+      let fire1 = this.afs;
+      let fire2 = this.afs;
+      return new Promise((resolve) => {
+        console.log(idDoc)
+        fire1.collection('users').doc(uid).collection('evidence').doc(idDoc).collection('images').ref.get().then((doc) => {
+          if(doc.empty){
+            resolve([]);
+          }else{
+            let filterData: any = []
+            doc.forEach(element => {
+              console.log(element.data())
+              filterData.push(element.data());
+            });
+            console.log(filterData)
             resolve(filterData)
           }
         }).catch((error) => {

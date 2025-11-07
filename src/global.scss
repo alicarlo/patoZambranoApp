@@ -41,6 +41,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root { font-size: 16px !important; } 
+
+html {
+  -webkit-text-size-adjust: 100% !important;
+  text-size-adjust: 100% !important;
+}
+
 ion-content {
   --background: var(--ion-color-cream);
 }
@@ -76,9 +83,10 @@ ion-item {
 .bottom-end {
   &::part(content) {
     width: 100%;
-    height: 350px;
+    height: 400px;
     position: absolute;
     bottom: 0;
+    background-color: var(--ion-color-light, #f4f5f8);
   }
 }
 

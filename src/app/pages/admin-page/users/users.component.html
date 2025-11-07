@@ -20,6 +20,7 @@
       <div *ngFor="let data of dataList" >
       <div class="w-full bg-[#f6f8fc] rounded-[32px] p-6  shadow-lg hover:shadow-2xl transitiont mt-4">
         <div class="font-medium">
+          <p>Fecha de creacion:  {{ data.date | date:'dd-MM-yyyy' }}</p>
           <p class="">Nombre: {{ data.name }} {{ data.secondLastName}}</p>
           <p>Correo:  {{ data.email }}</p>
           <p>Telefono: {{ data.phoneNumber }}</p>

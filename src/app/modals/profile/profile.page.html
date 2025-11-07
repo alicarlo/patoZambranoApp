@@ -106,6 +106,7 @@
       </ng-container>
     </div>
 
+    <!--
     <div class="mb-4">
       <label for="state" class="block text-dark2 font-semibold mb-2">Estado</label>
       <input
@@ -123,6 +124,7 @@
         </div>
       </ng-container>
     </div>
+    -->
 
     <div class="mb-4">
       <label for="town" class="block text-dark2 font-semibold mb-2">Municipio</label>
@@ -179,6 +181,27 @@
         </div>
       </ng-container>
     </div>
+
+    <div class="mb-4">
+      <label  class="block text-dark2 font-semibold mb-2">Seccion</label>
+      <input
+        formControlName="section"
+        type="text"
+        inputmode="numeric"
+        pattern="\d*"
+        maxlength="5"
+        placeholder="Ingrese su seccion"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.section">
+        <div class="error-message" *ngIf="signupForm.get('section')?.hasError(error.type) && (signupForm.get('section')?.dirty || signupForm.get('section')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
 
     <div class="mb-4">
       <label for="age" class="block text-dark2 font-semibold mb-2">Edad</label>

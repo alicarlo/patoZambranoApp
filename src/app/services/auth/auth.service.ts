@@ -159,12 +159,13 @@ export class AuthService {
           phoneNumber: user.phoneNumber,
           address: user.address,
           colony: user.colony,
-          state: user.state,
+          // state: user.state,
           town: user.town,
           postalCode: user.postalCode,
           token: '',
           customerId: "bnhTylS19PZVCQwtN3z8",
-          customerName: "Pato Zambrano"
+          customerName: "Voz Viva",
+          section: user.section
         })
         .then(function (dataAux) {
           resolve(true);
@@ -198,7 +199,7 @@ export class AuthService {
           phoneNumber: user.phoneNumber,
           address: user.address,
           colony: user.colony,
-          state: user.state,
+          // state: user.state,
           town: user.town,
           postalCode: user.postalCode,
           token: '',
@@ -251,10 +252,11 @@ export class AuthService {
           phoneNumber: userData.phoneNumber,
           address: userData.address,
           colony: userData.colony,
-          state: userData.state,
+          // state: userData.state,
           town: userData.town,
           postalCode: userData.postalCode,
-          age: userData.age
+          age: userData.age,
+          section: userData.section
         })
         .then(() => {
           resolve(true);

@@ -34,8 +34,24 @@ export class EvidencePage implements OnInit {
   }
 
 
+  /*async getEvidence() {
+    const evidence: any = await this._EvidenceService.getEvidence(this.user.uid);
+    if (evidence === false) {
+      this.loading = 1;
+    }else{
+      this.evidence = evidence;
+      this.loading = 2;
+    }
+  }
+    */
+
   async getEvidence() {
     const evidence: any = await this._EvidenceService.getEvidence(this.user.uid);
+    for (const item of evidence) {
+      // idDocEvidenceSample
+      let arrayImages =  await this._EvidenceService.getImages(this.user.uid, item.idDocEvidenceSample);
+      item['arrayImages'] = arrayImages
+    }
     if (evidence === false) {
       this.loading = 1;
     }else{

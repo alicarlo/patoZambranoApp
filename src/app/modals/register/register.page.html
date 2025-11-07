@@ -108,6 +108,7 @@
       </ng-container>
     </div>
 
+    <!--
     <div class="mb-4">
       <label for="state" class="block text-dark2 font-semibold mb-2">Estado</label>
       <input
@@ -125,6 +126,7 @@
         </div>
       </ng-container>
     </div>
+    -->
 
     <div class="mb-4">
       <label for="town" class="block text-dark2 font-semibold mb-2">Municipio</label>
@@ -158,6 +160,24 @@
     <div class="error-messages">
       <ng-container *ngFor="let error of error_messages.colony">
         <div class="error-message" *ngIf="signupForm.get('colony')?.hasError(error.type) && (signupForm.get('colony')?.dirty || signupForm.get('colony')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Código Postal -->
+    <div class="mb-4">
+      <label  class="block text-dark2 font-semibold mb-2">Seccion</label>
+      <input
+        formControlName="section"
+        type="number"
+        placeholder="Ingrese su seccion"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.section">
+        <div class="error-message" *ngIf="signupForm.get('section')?.hasError(error.type) && (signupForm.get('section')?.dirty || signupForm.get('section')?.touched)">
           {{error.message}}
         </div>
       </ng-container>
@@ -275,15 +295,20 @@
     </div>
 
     <!-- Contraseña -->
-    <div class="mb-4">
-      <label for="password" class="block text-dark2 font-semibold mb-2">Contraseña</label>
+    <div class="mb-4 relative">
+      <label for="password" class="block text-dark2 font-semibold mb-2">Contraseña</label>
       <input
         formControlName="password"
         id="password"
-        type="password"
-        placeholder="Ingrese su Contraseña"
-        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+        [type]="showPassword ? 'text' : 'password'"
+        placeholder="Ingrese su Contraseña"
+        class="w-full px-4 py-3 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
       />
+      <ion-icon
+        [name]="showPassword ? 'eye-off' : 'eye'"
+        class="absolute right-3 top-[65%] transform -translate-y-1/2 text-xl text-gray-600 cursor-pointer"
+        (click)="togglePasswordVisibility()"
+      ></ion-icon>
     </div>
     <div class="error-messages">
       <ng-container *ngFor="let error of error_messages.password">
@@ -383,6 +408,7 @@
       />
     </div>
 
+    <!--
     <div class="mb-4">
       <label for="state" class="block text-dark2 font-semibold mb-2">Estado (Opcional)</label>
       <input
@@ -393,6 +419,7 @@
         class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
       />
     </div>
+  -->
 
     <div class="mb-4">
       <label for="town" class="block text-dark2 font-semibold mb-2">Municipio (Opcional)</label>
@@ -415,6 +442,24 @@
         placeholder="Ingrese su Colonia"
         class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
       />
+    </div>
+
+    <!-- Código Postal -->
+    <div class="mb-4">
+      <label  class="block text-dark2 font-semibold mb-2">Seccion</label>
+      <input
+        formControlName="section"
+        type="number"
+        placeholder="Ingrese su seccion"
+        class="w-full px-4 py-3 border border-border-custom rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+      />
+    </div>
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.section">
+        <div class="error-message" *ngIf="signupForm.get('section')?.hasError(error.type) && (signupForm.get('section')?.dirty || signupForm.get('section')?.touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
     </div>
 
     <!-- Código Postal -->

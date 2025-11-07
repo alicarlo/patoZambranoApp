@@ -39,6 +39,7 @@
     "@capacitor/share": "^7.0.0",
     "@capacitor/status-bar": "^7.0.0",
     "@capacitor/storage": "^1.2.5",
+    "@capacitor/text-zoom": "^7.0.2",
     "@ionic/angular": "^8.0.0",
     "capacitor-plugin-safe-area": "^4.0.0",
     "capacitor-voice-recorder": "^7.0.5",

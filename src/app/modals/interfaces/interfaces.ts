@@ -13,4 +13,5 @@ export interface UserForm {
   age: string;
   state: string;
   town: string;
+  section: string;
 }

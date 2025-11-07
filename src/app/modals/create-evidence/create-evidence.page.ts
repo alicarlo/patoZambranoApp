@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, ModalController, NavParams, ToastController } from '@ionic/angular';
+import { ActionSheetController, LoadingController, ModalController, NavParams, ToastController } from '@ionic/angular';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { finalize, Observable } from 'rxjs';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
@@ -48,6 +48,8 @@ export class CreateEvidencePage implements OnInit {
   location: any = { lat: 0, lng: 0 };
   evidenceType: any = [];
   evidenceTypeSelect: any = null;
+
+  imageUrlArray: any = []
   constructor(
     private _ModalController: ModalController,
     private _ToastController: ToastController,
@@ -56,6 +58,7 @@ export class CreateEvidencePage implements OnInit {
     private _LoadingController: LoadingController,
     private _EvidenceService: EvidenceService,
     private _NavParams: NavParams,
+    private _ActionSheetController: ActionSheetController
   ) {
     const data = this._NavParams.get('value');
     this.location = data.location;
@@ -74,6 +77,63 @@ export class CreateEvidencePage implements OnInit {
     return this._ModalController.dismiss(1);
   }
 
+
+  async presentActionSheet() {
+  const actionSheet = await this._ActionSheetController.create({
+    header: 'Opciones',
+    buttons: [
+      {
+        text: 'Camara',
+        data: { action: 'camera' },
+      },
+      {
+        text: 'Galeria',
+        data: { action: 'gallery' },
+      },
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        data: { action: 'cancel' },
+      },
+    ],
+  });
+
+  await actionSheet.present();
+
+  // Espera a que el usuario seleccione
+  const { data, role } = await actionSheet.onDidDismiss();
+  console.log('data:', data);  // { action: 'camera' } o 'gallery' o 'cancel'
+  console.log('role:', role);  // 'cancel' si presionó cancelar
+  console.log(data)
+  console.log(data?.action)
+
+
+  let acc = data?.action === 'camera' ? 'camera' : 'photos'
+  let options = ['camera', 'photos'] 
+  if (options.includes(acc)) this.pickImage(acc);
+}
+
+
+
+  async pickImage(action: string) {
+    this.boxAudio = false;
+		const image = await Camera.getPhoto({
+			quality: 90,
+			allowEditing: false,
+			resultType: CameraResultType.Base64,
+			source: action === 'camera' ? CameraSource.Camera : CameraSource.Photos,
+		});
+    // this.imageUrl ='data:image/png;base64,' + image.base64String;
+    let img = 'data:image/png;base64,' + image.base64String;
+    this.imageUrlArray.push(img)
+  }
+
+  removeImage(index: number) {
+    // this.imageUrl = '';
+    this.imageUrlArray.splice(index, 1);
+  }
+
+  /*
   async pickImage() {
     this.boxAudio = false;
 		const image = await Camera.getPhoto({
@@ -88,6 +148,7 @@ export class CreateEvidencePage implements OnInit {
   removeImage() {
     this.imageUrl = '';
   }
+    */
 
   removeAudio() {
     this.audioUrl = '';
@@ -209,12 +270,32 @@ export class CreateEvidencePage implements OnInit {
       }
     }
 
+    /*
     if (this.imageUrl !== '') {
       responseImage = await  this.uploadImage(dateTimeId);
       if (responseImage === '') {
         loading.dismiss();
         return
       }
+    }
+      */
+
+    let imageResponse: any = [];
+    if (this.imageUrlArray.length > 0) {
+
+      for (const imageUrl of this.imageUrlArray) {
+        const dateTimeIdImage = moment().format('DD-MM-YYYY-hh:mm:ss');
+        responseImage = await this.uploadImage(imageUrl, dateTimeIdImage);
+        if (responseImage !== '') {
+          imageResponse.push(responseImage);
+        }
+      }
+      /*
+      responseImage = await  this.uploadImage(dateTimeId);
+      if (responseImage === '') {
+        loading.dismiss();
+        return
+      }*/
     }
 
     await this.getGps();
@@ -237,7 +318,7 @@ export class CreateEvidencePage implements OnInit {
       );
 
 
-      await this._EvidenceService.createEvidenceByUser(
+       const idUserEvidence: any = await this._EvidenceService.createEvidenceByUser(
         idDocEvidence,
         this.user,
         responseImage,
@@ -253,6 +334,11 @@ export class CreateEvidencePage implements OnInit {
         this.location.lng,
         this.evidenceTypeSelect
       );
+
+      for (const image of imageResponse) {
+        await this._EvidenceService.addImageEvidence(idDocEvidence, image);
+        await this._EvidenceService.addImageEvidenceUser(idDocEvidence, idUserEvidence, image, this.user.uid);
+      }
 
       loading.dismiss();
       this.presentToast('Evidencia creada', 'success');
@@ -324,6 +410,7 @@ export class CreateEvidencePage implements OnInit {
 	}
 
 
+  /*
   async uploadImage(dateTimeId: any) {
 		return new Promise((resolve, rejects) => {
 		if (this.imageUrl === '') {
@@ -332,6 +419,37 @@ export class CreateEvidencePage implements OnInit {
 		this.userBucketPath = `userEvidence/imageIds/${this.user.uid}-${dateTimeId}.jpeg`;
 		const fileRef = this._BucketStorage.ref(this.userBucketPath);
     this.task = this._BucketStorage.ref(this.userBucketPath).putString(this.imageUrl, 'data_url');
+
+      // observe percentage changes
+      this.uploadPercent = this.task.percentageChanges();
+
+			const url = this.task.snapshotChanges().pipe(
+        finalize(() => {
+
+          this.downloadURL = fileRef.getDownloadURL();
+          this.downloadURL.subscribe(async (url: any) => {
+						resolve(url);
+          },(e: any) => {
+						resolve('')
+						this.presentToast(`Problemas al subir la imagen - ${e}`, 'danger')
+					})
+        })
+      ).subscribe(() => {
+        
+			},(error: any) => {
+				resolve('')
+				this.presentToast('Problemas al subir la imagen', 'danger')
+			})
+		})
+	}
+  */
+
+  async uploadImage(base64: string, dateTimeId: any) {
+		return new Promise((resolve, rejects) => {
+
+		this.userBucketPath = `userEvidence/imageIds/${this.user.uid}-${dateTimeId}.jpeg`;
+		const fileRef = this._BucketStorage.ref(this.userBucketPath);
+    this.task = this._BucketStorage.ref(this.userBucketPath).putString(base64, 'data_url');
 
       // observe percentage changes
       this.uploadPercent = this.task.percentageChanges();

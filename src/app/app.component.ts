@@ -4,6 +4,8 @@ import { SafeArea } from 'capacitor-plugin-safe-area';
 import { Capacitor } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
 
+import { TextZoom } from '@capacitor/text-zoom';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,18 @@ export class AppComponent {
   constructor(
     private _Platform: Platform
   ) {
+    this.lockTextZoom();
     this.init();
+
+    App.addListener('appStateChange', ({ isActive }) => {
+      if (isActive) this.lockTextZoom();
+    });
+  }
+
+  
+
+  async lockTextZoom() {
+   await TextZoom.set({ value: 1.0 }); // 1.0 = 100%
   }
 
   private async init() {
@@ -51,4 +64,8 @@ export class AppComponent {
     }
 
   }
+
+  
 }
+
+

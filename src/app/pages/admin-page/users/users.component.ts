@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
+import * as moment from 'moment';
 import { RegisterPage } from 'src/app/modals/register/register.page';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -43,8 +44,9 @@ export class UsersComponent  implements OnInit {
       return new Promise((resolve, reject) => {
         this._AuthService.getAllUsers().then((res: any) => {
           console.log(res)
-          this.dataList = res;
-          this.dataListAux = res;
+          const sorted = [...res].sort((a, b) => moment(b.date).valueOf() - moment(a.date).valueOf());
+          this.dataList = sorted;
+          this.dataListAux = sorted;
           loading.dismiss();
         }).catch((err: any) => {
           loading.dismiss();

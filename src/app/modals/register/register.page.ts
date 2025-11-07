@@ -47,9 +47,11 @@ export class RegisterPage implements OnInit {
     colony: [
       { type: 'required', message: 'Colonia requerida' }
     ],
+    /*
     state: [
       { type: 'required', message: 'Estado requerida' }
     ],
+    */
     town: [
       { type: 'required', message: 'Municipio requerida' }
     ],
@@ -73,9 +75,13 @@ export class RegisterPage implements OnInit {
     password: [
       { type: 'required', message: 'Contraseña requerida' },
       { type: 'minlength', message: 'Debe tener al menos 8 caracteres' }
+    ],
+    section: [
+      { type: 'required', message: 'Sección requerida' }
     ]
   };
   
+  showPassword: boolean = false;
   constructor(
     private _ModalController: ModalController,
     private _LoadingController: LoadingController,
@@ -97,6 +103,10 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
   closeMenu() {
     return this._ModalController.dismiss();
   }
@@ -109,7 +119,7 @@ export class RegisterPage implements OnInit {
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]], // Solo 10 dígitos numéricos
       address: ['', [Validators.required]],
       colony: ['', [Validators.required]],
-      state: ['', [Validators.required]],
+      // state: ['', [Validators.required]],
       town: ['', [Validators.required]],
       postalCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]], // Solo 5 dígitos numéricos
       email: ['', [Validators.required, Validators.email]],
@@ -117,6 +127,7 @@ export class RegisterPage implements OnInit {
       dob: ['', Validators.compose([Validators.required])],
       gender: ['', Validators.compose([Validators.required])],
       age: ['', Validators.compose([Validators.required])],
+      section: ['', Validators.compose([Validators.required, Validators.maxLength(5)])],
     });
   }
 
@@ -128,13 +139,14 @@ export class RegisterPage implements OnInit {
       phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       address: [''],
       colony: [''],
-      state: [''],
+      // state: [''],
       town: [''],
       postalCode: [''],
       email: [''],
       dob: [''],
       gender: [''],
       age: [''],
+      section: ['', [Validators.required,Validators.maxLength(50)]]
     });
   }
 
